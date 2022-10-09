@@ -7,22 +7,29 @@
   <body>
     <%- include('partials/header-nav.ejs') %>
     <main>
-        <h2>Search results for: <%= q %> </h2>
-        <div class="recipe-grid">
-            <% for (let index = 0; index < 32; index++) {
-            %>
-            <div class="recipe-card">
-                <img src="<%= hits[index].recipe.image %>" alt="recipe photo">
-                <div>
-                  <p><b> <%= hits[index].recipe.label  %>  </b></p>
-                  <p>Cuisine Type: <%= hits[index].recipe.cuisineType %> <br>
-                  Source: <a href="<%= hits[index].recipe.url %>" target="_blank"> <%= hits[0].recipe.source  %> </a></p> 
-                </div>
-            </div>
-            <%
-            } %> 
-
+      <form action="search-results" method="get">
+        <label for="search_keywords"></label>
+        <input type="text" id="search_keywords" name="search_keywords" placeholder="Ingredients" value="<%= q %> " />
+        <input type="submit" Value="Search"  />
+      </form>
+      <h2>Search results for: <%= q %></h2>
+      <div class="recipe-grid">
+        <% for (let index = 0; index < 32; index++) { %>
+        <div class="recipe-card">
+          <img src="<%= hits[index].recipe.image %>" alt="recipe photo" />
+          <div>
+            <p><b> <%= hits[index].recipe.label %> </b></p>
+            <p>
+              Cuisine Type: <%= hits[index].recipe.cuisineType %> <br />
+              Source:
+              <a href="<%= hits[index].recipe.url %>" target="_blank">
+                <%= hits[0].recipe.source %>
+              </a>
+            </p>
+          </div>
         </div>
+        <% } %>
+      </div>
     </main>
     <%- include("partials/footer.ejs") %>
   </body>
