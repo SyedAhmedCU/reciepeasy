@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/meta.ejs") %>
+    <title>RecipEasy: Show recipe</title>
+  </head>
+  <body>
+    <%- include('partials/header-nav.ejs') %>
+    <main>
+      <section class="show-recipe">
+        <h4>RecipeID: <%= _id %></h4>
+        <div class="request-image">
+          <% if (rPhotoName != ""){ %>
+          <img src="/uploads/<%= rPhotoName%>" /> <br />
+          <% } %>
+        </div>
+        <div class="request-text"></div>
+        <p>
+          <b>Name: </b> <%= rName %> <br />
+          <b>Email:</b> <%= rEmail %> <br />
+          <b>Recipe Name:</b> <%= rRecipeName %> <%- rDescription %>
+        </p>
+      </section>
+    </main>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

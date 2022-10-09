@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("partials/meta.ejs")  %> 
+        <title>RecipEasy: Admin Login</title>
+    </head>
+    <body>
+        <%- include('partials/header-nav.ejs') %> 
+        <main>
+            <section class="login_page">
+                <form name="loginform" action="/login" method="post">
+                    <h2>Admin Login</h2>
+                    <div class="labelwrapper">
+                        <div class="fieldwrapper">
+                            <label for="aName">Username*</label>
+                            <input id="aName" name="aName" type="text"/>
+                        </div>
+                        <div class="fieldwrapper">
+                            <label for="apass">Password*:</label>
+                            <div>
+                                <input id="aPass" name="aPass" type="password"/>
+                                <% if(typeof(errors)!="undefined"){%> 
+                                    <p>Invalie Username or Password</p>
+                                <% } %> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submission">
+                        <input type="submit" value="Login">
+                    </div>
+                </form>
+            </section>
+        </main>
+        <%- include("partials/footer.ejs")  %> 
+    </body>
+</html>

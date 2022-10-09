@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/meta.ejs")  %> 
+    <title>RecipEasy: My Recipes</title>
+</head>
+<body>
+    <%- include('partials/header-nav.ejs') %> 
+    <main>
+        <div class="dashboard">
+            <h2>Dashboard</h2>
+            <h3> My Recipes </h3>
+            <div class="recipe-grid">
+            <% for (var recipe of recipes) {
+            %>
+            <div class="recipe-card">
+                <img src="/uploads/<%= recipe.rPhotoName%>" alt="recipe photo">
+                <div>
+                  <p><b> <%= recipe.rRecipeName %>  </b></p>
+                  <p>Made By: <%= recipe.rName %> <br>
+                    <a href="/print/<%= recipe._id %>" target="_blank"> <b>View</b> </a> -- 
+                    <a href="/edit-recipe/<%= recipe._id %>" target="_blank"> <b>Edit</b> </a> -- 
+                    <a href="/delete-recipe/<%= recipe._id %>" target="_blank"> <b>Delete</b> </a>
+                    </p>
+                </div>
+            </div>
+            <%
+            } %> 
+
+        </div>
+        </div>
+    </main>
+    <%- include("partials/footer.ejs")  %> 
+</body>
+</html>

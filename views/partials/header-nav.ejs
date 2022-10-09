@@ -1,0 +1,28 @@
+<header>
+    <div id="topHead" class="logo_title">
+      <img src="/images/receipeasy_logo_v2.png" alt="RecipEasy logo" />
+    </div>
+    <nav class="navbar">
+      <ul>
+        <li>
+          <a href="/search">Search</a>        
+        </li>
+        <li>
+          <a href="/add-recipe">Add Recipe</a>
+        </li>
+        <% if (typeof(adminLog) != "undefined" && adminLog){ %> 
+        <li>
+          <a href="/dashboard">My Recipes</a>
+        </li>
+        <% } %>
+        <li>
+          <% if (typeof(adminLog) != "undefined" && adminLog){ %> 
+          <a href="/logout">Logout</a>
+          <% } else{%>
+          <a href="/login">Admin Login</a>
+          <% } %>  
+        </li> 
+      </ul>
+  </nav> 
+  <div style="clear: both;"></div>
+</header>
