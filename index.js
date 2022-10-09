@@ -93,6 +93,27 @@ myApp.get("/logout", function(req,res){
     res.redirect("/login");
 })
 
+// set route for search page
+myApp.get('/search', async function(req, res){
+    res.render("search");
+})
+
+// handle search and get response from api
+myApp.get("/search-results", async function(req,res){
+    const APP_ID = "085fc283";
+    const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
+    var search_keywords = req.query.search_keywords;
+    const RESULTS_NO = 32;
+    const response = await fetch(`https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&q=${search_keywords}&from=0&to=${RESULTS_NO}`);
+    const jsonRes = await response.json();
+    //console.log(jsonRes);
+    //console.log(jsonRes.hits);
+    //print json object to explore
+    //var jsonPretty = JSON.stringify(jsonRes.hits[0],null,2);
+    //console.log(jsonPretty);
+    res.render("search-result", jsonRes);
+})
+
 // dashboard
 myApp.get("/dashboard" , async function(req, res){
     if (req.session.loggedIn){
@@ -105,8 +126,12 @@ myApp.get("/dashboard" , async function(req, res){
 });
 
 // define the route for the recipe page
-myApp.get("/add-recipe", function(err, res){
-    res.render("add-recipe");
+myApp.get("/add-recipe", function(req, res){
+    if(req.session.loggedIn){
+        res.render("add-recipe");
+    } else{
+        res.redirect("/login");
+    }
 });
 
 // //define route for show recipe page
@@ -258,26 +283,6 @@ myApp.get("/setup", function(req,res){
     Admin.collection.insertMany(adminData);
     res.send("Admin login credentials added");
 });
-
-// set route for search page
-myApp.get('/search', function(req, res){
-    res.render("search");
-})
-
-// handle search
-myApp.get("/search-results", async function(req,res){
-    const APP_ID = "085fc283";
-    const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
-    var search_keywords = req.query.search_keywords;
-    const RESULTS_NO = 32;
-    const response = await fetch(`https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&q=${search_keywords}&from=0&to=${RESULTS_NO}`);
-    const jsonRes = await response.json();
-    var jsonPretty = JSON.stringify(jsonRes.hits[0],null,2);
-    //console.log(jsonRes);
-    console.log(jsonPretty);
-    //console.log(jsonRes.hits);
-    res.render("search-result", jsonRes);
-})
 
 //start the server (listen at a port)
 myApp.listen(8080);
