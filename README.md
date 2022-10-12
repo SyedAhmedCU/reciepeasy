@@ -1,9 +1,10 @@
 # RecipEasy
-<img src="https://user-images.githubusercontent.com/55814513/194733525-c8a62f51-ea23-4730-9785-8594f7cd4158.png" width=30% height=30% alt="receipeasy_logo">
 Full-stack web application for searching recipes. User can also add recipes. The informations are validated on the server side and also stored in a NoSQL database. User panel requires log in and allows user to view/edit/delete the recipes and view all the receipts. 
 - Developed the font-end with HTML5, CSS3, jQuery and server-side programming with Javascript which was rendered to the client-side using EJS.
 - Utilized Node.js and Express.js framework build the back-end with NoSQL database MongoDb and Edamam API.
 - Express-validator was used for user input validation on the server-side.
+
+<img src="https://user-images.githubusercontent.com/55814513/195369818-f8f31812-7ce4-4627-9fa1-0074235df523.png" width=70% alt="recipeasy website">
 
 ## How To Run
 ### Prerequisites
