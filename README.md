@@ -4,7 +4,7 @@ Full-stack web application for searching recipes. User can also add recipes. The
 - Utilized Node.js and Express.js framework build the back-end with NoSQL database MongoDb and Edamam API.
 - Express-validator was used for user input validation on the server-side.
 
-<img src="https://user-images.githubusercontent.com/55814513/195369818-f8f31812-7ce4-4627-9fa1-0074235df523.png" width=70% alt="recipeasy website">
+<img src="https://user-images.githubusercontent.com/55814513/195380222-bab4d837-09dd-4f60-b423-97960fc7f227.png" width=100% alt="recipeasy website">
 
 ## How To Run
 ### Prerequisites
