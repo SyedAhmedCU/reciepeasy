@@ -5,26 +5,31 @@
       <title>RecipEasy: Deleted recipe</title>
     </head>
     <body>
+      <div class="container">
         <%- include('partials/header-nav.ejs') %> 
         <main>
-          <section class="show-request">
+          <div>
             <h1>Thank you</h1>
-            <h5>Following recipe has been successfully deleted!</h5>
-            <h4>RecipeID: <%= _id %></h4>
-            <div class="request-image">
+            <h4>Following recipe has been successfully deleted!</h4>
+          </div>
+          <div class="show-recipe">
+            <section class="request-image">
               <% if (rPhotoName != ""){ %>
-                <img src= "/uploads/<%= rPhotoName%>" /> <br> 
+              <img src="/uploads/<%= rPhotoName%>" /> <br />
               <% } %>
-            </div>
-            <div class="request-text"></div>
-            <p>
-              <b>Name: </b> <%= rName %> <br>
-              <b>Email:</b> <%= rEmail %> <br>
-              <b>Recipe Name:</b> <%= rRecipeName %>
-              <%- rDescription %> 
-            </p>
-          </section>
+            </section>
+            <section class="recipe-details">
+              <h2><b>Recipe Name:</b> <%= rRecipeName %></h2>
+              <p>
+                <b> RecipeID: <%= _id %> </b> <br>
+                <b>Chef: </b> <%= rName %> <br />
+                <b>Email:</b> <%= rEmail %>
+              </p>
+              <p><b>Description:</b> <br> <%- rDescription %></p>
+            </section>
+          </div>
         </main>
         <%- include("partials/footer.ejs")  %> 
+      </div>
     </body>
 </html>

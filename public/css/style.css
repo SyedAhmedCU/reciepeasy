@@ -1,20 +1,28 @@
 body{
-    width: 1000px;
-    margin:auto;
-    text-align: center;
-    background-image: url(/images/pexels-ray-piedra.jpg);
+    margin: 0 auto;
+    background-image: url(/images/pexels-ray-piedra_blur.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: right;
+    background-position: center;
     background-size: cover;
+}
+body .container{
+    width: 1000px;
+    margin: auto;
+    text-align: center;
     color: white;
     font-family: cursive;
+}
+main{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    min-height: 300px;
 }
 img{
     width: 100%;
 }
 h1, h2, h3{
-    text-shadow:  0 5px 5px cyan;
+    text-shadow:  0 5px 5px #15fd00;
 }
 a{
     color: white;
@@ -26,17 +34,12 @@ a{
     padding: 10px;
 }
 nav, footer {
-    border: 2px solid cyan;
-    border-radius: 10px;
+    /* border: 2px solid cyan; */
+    /* border-radius: 10px; */
     padding: 10px;
 }
 footer img{
     width: 10%;
-}
-main{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    min-height: 300px;
 }
 nav ul{
     list-style-type: none;
@@ -48,12 +51,14 @@ nav ul li a{
   padding: 10px 30px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 14px;
-  border: 2px solid cyan;
+  font-size: 16px;
+  text-shadow:  0 5px 5px #15fd00;
+  border: 2px solid #b3fd00;
   border-radius: 20px;
+  
 }
 nav a:hover{
-  background-color: cyan;
+  background-color: #b3fd00;
   color: #084a83;
 }
 
@@ -110,7 +115,7 @@ fieldset legend{
 
 /* input styles */
 input:hover{
-    border: 2px solid cyan; 
+    border: 2px solid #b3fd00; 
 }
 input, textarea {
     border: 2px solid white;
@@ -126,7 +131,7 @@ select{
 input[type="submit"], input[type="reset"]{
     min-width: 100px;
     margin: 30px;
-    background-color: cyan;
+    background-color: #b3fd00;
     font-size: large;
     height: 40px;
     box-shadow: -2px -2px 0 #afa405;
@@ -139,7 +144,7 @@ input[type="submit"]:active, input[type="reset"]:active{
     box-shadow: none;
 }
 input[type="submit"]:hover, input[type="reset"]:hover{
-    background-color: #edf057;
+    background-color: #15fd00;
 }
 
 /* receipt */
@@ -159,13 +164,13 @@ input[type="submit"]:hover, input[type="reset"]:hover{
 
 /* table, dashboard */
 table, td, th {
-    border: 2px solid cyan;
+    border: 2px solid #b3fd00;
     padding: 10px;
 }
 th{
     position: sticky;
     top: 0;
-    background-color: cadetblue;
+    background-color: #83b807;
     color: black;
 }
 table{
@@ -173,7 +178,7 @@ table{
     min-width: 100% ;
 }
 table td a{
-    text-shadow:  0 5px 5px cyan;
+    text-shadow:  0 5px 5px #15fd00;
     text-decoration: none;
     color: white;
 }
@@ -194,20 +199,20 @@ table td a{
     padding: 20px;
 }
 
-/* show-request */
-.show-request{
-    max-width: 600px;
+/* show-recipe */
+.show-recipe{
     margin: auto;
     box-shadow: 0 0 20px black;
     border: 2px solid black;
     border-radius: 10px;
     padding: 30px ;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-gap: 30px;
+    text-align: justify;
 }
-.show-request img{
-    width: 80%;
-}
-.show-request p{
-    text-align: left;
+.show-recipe a{
+    color: #15fd00;
 }
 
 /* edit-request */
@@ -237,9 +242,10 @@ table td a{
 
 .recipe-grid{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
 }
 .recipe-card{
     border: 2px solid rgb(139, 143, 143);
 }
+

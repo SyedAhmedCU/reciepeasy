@@ -5,14 +5,16 @@
     <title>RecipEasy: Search Recipe</title>
   </head>
   <body>
-    <%- include('partials/header-nav.ejs') %> 
-    <main>
-      <form action="search-results" method="get">
-        <label for="search_keywords"></label>
-        <input type="text" id="search_keywords" name="search_keywords" placeholder="Ingredients" />
-        <input type="submit" Value="Search"  />
-      </form>
-    </main>
-    <%- include("partials/footer.ejs") %>
+    <div class="container">
+      <%- include('partials/header-nav.ejs') %> 
+      <main>
+        <form action="search-results" method="get">
+          <label for="search_keywords"></label>
+          <input type="text" id="search_keywords" name="search_keywords" placeholder="Ingredients" />
+          <input type="submit" Value="Search"  />
+        </form>
+      </main>
+      <%- include("partials/footer.ejs") %>
+    </div>
   </body>
 </html>

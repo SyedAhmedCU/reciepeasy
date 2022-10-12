@@ -5,54 +5,57 @@
         <title>RecipEasy: Edit Recipe</title>
     </head>
     <body>
-        <%- include('partials/header-nav.ejs') %> 
-        <main>
-            <section class="request_page">
-                <% if (typeof(recipe) != "undefined") { %> 
-                    <h1> Thank you</h1>
-                    <p>Recipe has been successfully edited!</p>
-                <% }else{ %>
-                <form action="/process-edit/<%= _id %>" method="post" enctype="multipart/form-data">
-                    <h2>Edit Recipe</h2>
-                    <div class="labelwrapper">
-                        <div class="fieldwrapper">
-                            <label for="rName">Name*: </label>
-                            <input type="text" id="rName" name="rName" value="<%=rName%>">
-                        </div>
-                        <div class="fieldwrapper">
-                            <label for="rEmail">Email*: </label>
-                            <input type="email" id="rEmail" name="rEmail" value="<%=rEmail%>">
-                        </div>
-                        <% if (rPhotoName != ""){ %>
-                            <div class="fieldwrapper-photo">
-                                <label for="rPhoto">New Photo: </label>
-                                <input type="file" id="rPhoto" name="rPhoto">
-                                <img src="/uploads/<%= rPhotoName %>" alt="Recipe photo">
-                                <input type="text" id="rOldPhotoName" name="rOldPhotoName" readonly value="<%=rPhotoName%>">
-                            </div>
-                        <% }else{%>
+        <div class="container">
+            <%- include('partials/header-nav.ejs') %> 
+            <main>
+                <section class="request_page">
+                    <% if (typeof(recipe) != "undefined") { %> 
+                        <h1> Thank you</h1>
+                        <p>Recipe has been successfully edited!</p>
+                    <% }else{ %>
+                    <form action="/process-edit/<%= _id %>" method="post" enctype="multipart/form-data">
+                        <h2>Edit Recipe</h2>
+                        <div class="labelwrapper">
                             <div class="fieldwrapper">
-                                <label for="rPhoto">Photo: </label>
-                                <input type="file" id="rPhoto" name="rPhoto" value="<%= rPhotoName %> ">
+                                <label for="rName">Name*: </label>
+                                <input type="text" id="rName" name="rName" value="<%=rName%>">
                             </div>
-                        <% } %>   
-                        <div class="fieldwrapper">
-                            <label for="rRecipeName">Recipe Name*: </label>
-                            <input type="text" id="rRecipeName" name="rRecipeName" value="<%=rRecipeName%>">
+                            <div class="fieldwrapper">
+                                <label for="rEmail">Email*: </label>
+                                <input type="email" id="rEmail" name="rEmail" value="<%=rEmail%>">
+                            </div>
+                            <% if (rPhotoName != ""){ %>
+                                <div class="fieldwrapper-photo">
+                                    <label for="rPhoto">New Photo: </label>
+                                    <input type="file" id="rPhoto" name="rPhoto">
+                                    <img src="/uploads/<%= rPhotoName %>" alt="Recipe photo">
+                                    <input type="text" id="rOldPhotoName" name="rOldPhotoName" readonly value="<%=rPhotoName%>">
+                                </div>
+                            <% }else{%>
+                                <div class="fieldwrapper">
+                                    <label for="rPhoto">Photo: </label>
+                                    <input type="file" id="rPhoto" name="rPhoto" value="<%= rPhotoName %> ">
+                                </div>
+                            <% } %>   
+                            <div class="fieldwrapper">
+                                <label for="rRecipeName">Recipe Name*: </label>
+                                <input type="text" id="rRecipeName" name="rRecipeName" value="<%=rRecipeName%>">
+                            </div>
+                            <div class="fieldwrapper">
+                                <label for="rDescription">Description*: </label>
+                                <input type="text" id="rDescription" name="rDescription" value="<%=rDescription%>">
+                            </div>
                         </div>
-                        <div class="fieldwrapper">
-                            <label for="rDescription">Description*: </label>
-                            <input type="text" id="rDescription" name="rDescription" value="<%=rDescription%>">
+                        <div class="submission">
+                            <input type="submit" value="Edit Recipe">
                         </div>
-                    </div>
-                    <div class="submission">
-                        <input type="submit" value="Edit Recipe">
-                    </div>
-                </form>
-                <% } %> 
-            </section>
-        </main>
-        <%- include("partials/footer.ejs")  %> 
+                    </form>
+                    <% } %> 
+                </section>
+            </main>
+            <%- include("partials/footer.ejs")  %> 
+        </div>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="/js/tinymce/tinymce.min.js"></script>
         <script>
