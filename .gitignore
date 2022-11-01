@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+/public/uploads
 
 # Microsoft Fakes
 FakesAssemblies/
