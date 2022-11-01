@@ -5,7 +5,7 @@
     <title>RecipEasy: Results</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container search-results">
       <%- include('partials/header-nav.ejs') %>
       <main>
         <% if (typeof(count)=="undefined" ){ %>
@@ -13,15 +13,30 @@
           <h3>Please contact ChefDevs team. Sorry for the inconvenience.</h3>
           <% } else{  %>
         <form action="search-results" method="get">
-          <label for="search_keywords"></label>
-          <input
-            type="text"
-            id="search_keywords"
-            name="search_keywords"
-            placeholder="Ingredients"
-            value="<%= q %> "
-          />
-          <input type="submit" Value="Search" />
+          <div class="labelwrapper-search">
+            <div class=""></div>
+            <div class="fieldwrapper-search">
+              <label for="search_keywords" >Ingradients</label>
+              <input
+                type="text"
+                id="search_keywords"
+                name="search_keywords"
+                placeholder="Ingredients"
+                value="<%= q %> "
+              />
+            </div>
+            <div>
+              <input type="submit" Value="Filter Search" />
+            </div>
+          </div>
+          <div class="labelwrapper-search">
+            <div class="fieldwrapper-search">
+              <label for="cuisineType"> Cuisine Type </label>
+              <select id="select_cuisine" name="cuisineType">
+                <option value="">Select</option>
+              </select>
+            </div>
+          </div>
         </form>
   
         <div class="recipe-result">
@@ -35,6 +50,12 @@
               } 
           %> 
           <h2>Showing results for: <%= q %></h2>
+          <%
+          if (typeof(cuisineSelected) != "undefined" && cuisineSelected != "") {
+          %>
+            <h3>Cuisine Type: <%= cuisineSelected %> </h3>
+          <%}%>
+          
           <div class="recipe-grid">
           <%
             for (let index=0; index < totalHits; index++) {
@@ -61,4 +82,15 @@
       <%- include("partials/footer.ejs") %>
     </div>
   </body>
+  <script>
+    const cuisineTypeArr = ["American", "Asian",	"British",	"Caribbean",	"Central Europe",	"Chinese",	"Eastern Europe",	"French",	"Indian",	"Italian",	
+    "Japanese",	"Kosher",	"Mediterranean",	"Mexican",	"Middle Eastern",	"Nordic",	"South American",	"South East Asian"];
+    cuisineTypeArr.sort();
+    cuisineTypeArr.forEach((cuisineType) => {
+    let opt = document.createElement("option");
+    opt.value = cuisineType;
+    opt.text = cuisineType;
+    select_cuisine.appendChild(opt);
+    });
+  </script>
 </html>
