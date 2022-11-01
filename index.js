@@ -104,10 +104,18 @@ myApp.get("/search-results", async function(req,res){
     const APP_ID = "085fc283";
     const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
     var search_keywords = req.query.search_keywords;
+    var cuisineSelected = req.query.cuisineType;
     const RESULTS_NO = 32;
-    const response = await fetch(`https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&q=${search_keywords}&from=0&to=${RESULTS_NO}`);
+    var fetchString = `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&q=${search_keywords}&from=0&to=${RESULTS_NO}`;
+
+    if (typeof(cuisineSelected) != "undefined" && cuisineSelected != ""){
+        fetchString += `&cuisineType=${cuisineSelected}`;
+    }
+
+    const response = await fetch(fetchString);
     const jsonRes = await response.json();
-    //console.log(jsonRes);
+    jsonRes["cuisineSelected"] = cuisineSelected;
+    console.log(jsonRes);
     //console.log(jsonRes.hits);
     //print json object to explore
     //var jsonPretty = JSON.stringify(jsonRes.hits[0],null,2);
