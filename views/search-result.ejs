@@ -43,8 +43,14 @@
               </select>
             </div>
             <div class="fieldwrapper-search">
+              <label for="dietLabel"> Diet Type</label>
+              <select id="select_dietLabel" name="dietLabel">
+                <option value="">___</option>
+              </select>
+            </div>
+            <div class="fieldwrapper-search">
               <label for="healthLabel"> Health Label</label>
-              <select id="select_healthLabel" name="healthLabel" multiple  style="height:100px;">
+              <select id="select_healthLabel" name="healthLabel" multiple  style="height:100px; padding: 5px;">
                 <option value="">___</option>
               </select>
             </div>
@@ -52,20 +58,24 @@
         </form>
   
         <div class="recipe-result">
-          <h3> <%
+          <p> <%
             if (typeof(cuisineSelected) != "undefined" && cuisineSelected != "") {
             %>
               Cuisine Type: <%= cuisineSelected %>;
             <% }
             if (typeof(mealSelected) != "undefined" && mealSelected != "") {
             %>
-              Meal Type: <%= mealSelected %> <br/>
+              Meal Type: <%= mealSelected %>
+            <% } 
+            if (typeof(dietSelected) != "undefined" && dietSelected != "") {
+            %>
+              Diet Type: <%= dietSelected %> <br/>
             <% } 
             if (typeof(healthSelected) != "undefined" && healthSelected[0] != "") {
             %>
               Health Label: <%= healthSelected %> 
             <% } %>
-          </h3>
+          </p>
           <% 
             var totalHits=0; 
             if (count != 0){
@@ -87,6 +97,7 @@
                   <p><b> <%= hits[index].recipe.label %> </b></p>
                   <p>Cuisine Type: <%= hits[index].recipe.cuisineType %> <br />
                     Meal Type: <%= hits[index].recipe.mealType %> <br />
+                    Diet Type: <%= hits[index].recipe.dietLabels %> <br />
                     Source:
                     <a href="<%= hits[index].recipe.url %>" target="_blank">
                       <%= hits[0].recipe.source %>
@@ -130,6 +141,14 @@
     opt.value = healthLabel;
     opt.text = healthLabel;
     select_healthLabel.appendChild(opt);
+    });
+
+    const dietLabelArr = ["balanced", "high-fiber", "high-protein", "low-carb", "low-fat", "low-sodium"];
+    dietLabelArr.forEach((dietLabel) => {
+    let opt = document.createElement("option");
+    opt.value = dietLabel;
+    opt.text = dietLabel;
+    select_dietLabel.appendChild(opt);
     });
 
   </script>

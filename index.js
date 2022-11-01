@@ -106,13 +106,12 @@ myApp.get("/search-results", async function(req,res){
     var search_keywords = req.query.search_keywords.trim();
     var cuisineSelected = req.query.cuisineType;
     var mealSelected = req.query.mealType;
+    var dietSelected = req.query.dietLabel;
     if(typeof(req.query.healthLabel) == "string" ){
         var healthSelected = [req.query.healthLabel];
     }else{
         var healthSelected = req.query.healthLabel;
     }
-    
-    console.log(healthSelected);
     const RESULTS_NO = 32;
     var fetchString = `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&q=${search_keywords}&from=0&to=${RESULTS_NO}`;
 
@@ -122,18 +121,22 @@ myApp.get("/search-results", async function(req,res){
     if (typeof(mealSelected) != "undefined" && mealSelected != ""){
         fetchString += `&mealType=${mealSelected}`;
     }
+    if (typeof(dietSelected) != "undefined" && dietSelected != ""){
+        fetchString += `&diet=${dietSelected}`;
+    }
     if (typeof(healthSelected) != "undefined" && healthSelected[0] != ""){
         healthSelected.forEach(element => {
             fetchString += `&health=${element}`;
         });
     }
-    console.log(fetchString);
     const response = await fetch(fetchString);
     const jsonRes = await response.json();
     jsonRes["cuisineSelected"] = cuisineSelected;
     jsonRes["mealSelected"] = mealSelected;
+    jsonRes["dietSelected"] = dietSelected;
     jsonRes["healthSelected"] = healthSelected;
     console.log(jsonRes);
+    console.log(fetchString);
     //console.log(jsonRes.hits);
     //print json object to explore
     //var jsonPretty = JSON.stringify(jsonRes.hits[0],null,2);
