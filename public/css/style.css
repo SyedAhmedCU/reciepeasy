@@ -81,6 +81,17 @@ form{
     display: grid;
     grid-template-columns: 2fr 3fr;
 }
+.search-results form{
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+}
+
+.fieldwrapper-search{
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+
 
 /* error msg */
 .fieldwrapper p{
