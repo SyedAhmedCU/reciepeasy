@@ -36,10 +36,26 @@
                 <option value="">Select</option>
               </select>
             </div>
+            <div class="fieldwrapper-search">
+              <label for="mealType"> Meal Type </label>
+              <select id="select_meal" name="mealType">
+                <option value="">Select</option>
+              </select>
+            </div>
           </div>
         </form>
   
         <div class="recipe-result">
+          <h3> <%
+            if (typeof(cuisineSelected) != "undefined" && cuisineSelected != "") {
+            %>
+              Cuisine Type: <%= cuisineSelected %>;
+            <% }
+            if (typeof(mealSelected) != "undefined" && mealSelected != "") {
+            %>
+              Meal Type: <%= mealSelected %> 
+            <% } %>
+          </h3>
           <% 
             var totalHits=0; 
             if (count != 0){
@@ -50,12 +66,7 @@
               } 
           %> 
           <h2>Showing results for: <%= q %></h2>
-          <%
-          if (typeof(cuisineSelected) != "undefined" && cuisineSelected != "") {
-          %>
-            <h3>Cuisine Type: <%= cuisineSelected %> </h3>
-          <%}%>
-          
+
           <div class="recipe-grid">
           <%
             for (let index=0; index < totalHits; index++) {
@@ -65,6 +76,7 @@
                 <div>
                   <p><b> <%= hits[index].recipe.label %> </b></p>
                   <p>Cuisine Type: <%= hits[index].recipe.cuisineType %> <br />
+                    Meal Type: <%= hits[index].recipe.mealType %> <br />
                     Source:
                     <a href="<%= hits[index].recipe.url %>" target="_blank">
                       <%= hits[0].recipe.source %>
@@ -85,12 +97,20 @@
   <script>
     const cuisineTypeArr = ["American", "Asian",	"British",	"Caribbean",	"Central Europe",	"Chinese",	"Eastern Europe",	"French",	"Indian",	"Italian",	
     "Japanese",	"Kosher",	"Mediterranean",	"Mexican",	"Middle Eastern",	"Nordic",	"South American",	"South East Asian"];
-    cuisineTypeArr.sort();
     cuisineTypeArr.forEach((cuisineType) => {
     let opt = document.createElement("option");
     opt.value = cuisineType;
     opt.text = cuisineType;
     select_cuisine.appendChild(opt);
     });
+
+    const mealTypeArr = [	"Breakfast", "Brunch",	"Lunch",	"Dinner",	"Snack", "Teatime"];
+    mealTypeArr.forEach((mealType) => {
+    let opt = document.createElement("option");
+    opt.value = mealType;
+    opt.text = mealType;
+    select_meal.appendChild(opt);
+    });
+
   </script>
 </html>
