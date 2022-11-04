@@ -9,11 +9,17 @@
 *.user
 *.userosscache
 *.sln.docstates
-/public/uploads
+
 /.DS_Store
 /public/.DS_Store
 /public/images/.DS_Store
 /public/images/food.gif
+
+# exclude everything
+public/uploads/*
+
+# exception to the rule
+!public/uploads/.gitkeep 
 
 # Microsoft Fakes
 FakesAssemblies/
