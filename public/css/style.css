@@ -342,7 +342,7 @@ table td a{
     height: 25px;
 }
 .fieldwrapper-photo img{
-    width: max-content;
+    width: fit-content;
     max-height: 80px;
 }
 
@@ -381,5 +381,7 @@ table td a{
     padding: 10px;
 }
 .recipe-img-details img{
+    max-width: fit-content;
+    max-height: 300px;
     padding-bottom: 10px;
 }
