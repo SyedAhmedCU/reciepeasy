@@ -96,19 +96,29 @@
             for (let index=0; index < totalHits; index++) {
           %>
               <div class="recipe-card">
-                <img src="<%= hits[index].recipe.image %>" alt="recipe photo" />
-              </div>
-              <div class="recipe-card-hover">
-                  <p><b> <%= hits[index].recipe.label %> </b></p>
-                  <p>Cuisine Type: <%= hits[index].recipe.cuisineType %> <br />
-                    Meal Type: <%= hits[index].recipe.mealType %> <br />
-                    Diet Type: <%= hits[index].recipe.dietLabels %> <br />
-                    Source:
-                    <a href="<%= hits[index].recipe.url %>" target="_blank">
-                      <%= hits[0].recipe.source %>
-                    </a>
-                  </p>
+                <div class="recipe-img-details">
+                  <img src="<%= hits[index].recipe.image %>" alt="recipe photo" />
+                  <div>
+                    <p><b> <%= hits[index].recipe.label %> </b> <br>
+                    Source: <a href="<%= hits[index].recipe.url %>" target="_blank">
+                      <%= hits[0].recipe.source %> </a> 
+                    </p>
+                    <p>Cuisine Type: <%= hits[index].recipe.cuisineType %> <br />
+                      Meal Type: <%= hits[index].recipe.mealType %> <br />
+                      Diet Type: <%= hits[index].recipe.dietLabels %> <br />
+                    </p> 
+                  </div>
                 </div>
+                <div class="recipe-card-hover">
+                    <p>Ingradients: </p>
+                    <ul>
+                      <% let items = hits[index].recipe.ingredientLines;
+                      items.forEach(function(ingr, index){ %>
+                        <li> <%= ingr %> </li>
+                      <% }) %>
+                    </ul>
+                </div>
+              </div>
           <% }%>
           </div>
           <% }else{ %>

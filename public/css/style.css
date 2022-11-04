@@ -15,7 +15,7 @@ body .container{
     text-align: center;
     color: white;
     font-family: 'Poor Story', cursive;
-    font-size: 30px;
+    font-size: 22px;
 }
 main{
     margin-top: 30px;
@@ -36,6 +36,7 @@ a{
 }
 /* header and navigation bar */
 nav{
+    font-size: 30px;
     float: right;
     margin-top: 40px ;
 }
@@ -53,7 +54,7 @@ nav{
 } */
 footer{
     padding-top: 12px;
-    font-size: 20px;
+    font-size: 18px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -173,8 +174,10 @@ form{
     grid-template-columns: 3fr 2fr;
 }
 #search_keywords{
-width: 300px;
-border-radius: 10px;
+    border-radius: 10px;
+}
+.search-form #search_keywords{
+    width: 400px;
 }
 
 .fieldwrapper-search{
@@ -212,7 +215,7 @@ border-radius: 10px;
 }
 
 fieldset legend{
-    font-size: larger;
+    font-size: 20px;
     font-weight: bold;
 }
 
@@ -224,7 +227,7 @@ input:hover{
     width: 200px;
     border: 2px solid white ;
     height: 25px;
-    font-size: 16px;
+    font-size: 20px;
     font-family: 'Poor Story', cursive;
 }
 /* input, textarea {
@@ -353,25 +356,31 @@ table td a{
 
 .recipe-grid{
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 2fr;
-    grid-gap: 10px;
-    font-size: 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 50px;
+    font-size: 18px;
+    text-align: left;
+    /* padding: 20px; */
+
 }
 .recipe-card{
-    /* border: 2px solid white; */
-    font-family: 'Poor Story', cursive;
-    font-size: 25px;
-    
+    box-shadow: 0px 0px 30px black;
+    /* border: 4px solid black; */
+    border-radius: 10px;
+    border-right: 1px solid #3b505e;
+    border-bottom: 1px solid #3b505e;
 }
-.recipe-card img{
-    /* width: 100%; */
-    width: 300px;
-    height: 100%;
-    
+.recipe-card p{
+    padding-left: 10px;
 }
-.recipe-card-hover{
-  background-color: black;
-  text-align: left;
-  padding-left: 20px;
+.recipe-img-details{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    padding: 10px;
 }
+.recipe-img-details img{
+    padding-bottom: 10px;
+}
+
 

@@ -15,14 +15,19 @@
                 <% for (var recipe of recipes) {
                 %>
                     <div class="recipe-card">
-                        <img src="/uploads/<%= recipe.rPhotoName%>" alt="recipe photo">
-                        <div>
-                        <p><b> <%= recipe.rRecipeName %>  </b></p>
-                        <p>Made By: <%= recipe.rName %> <br>
-                            <a href="/print/<%= recipe._id %>"> <b>View</b> </a> -- 
-                            <a href="/edit-recipe/<%= recipe._id %>"> <b>Edit</b> </a> -- 
-                            <a href="/delete-recipe/<%= recipe._id %>"> <b>Delete</b> </a>
-                            </p>
+                        <div class="recipe-img-details">
+                            <img src="/uploads/<%= recipe.rPhotoName%>" alt="recipe photo">
+                            <div>
+                            <p><b> <%= recipe.rRecipeName %>  </b></p>
+                            <p>Made By: <%= recipe.rName %> <br>
+                                <a href="/print/<%= recipe._id %>"> <b>View</b> </a> -- 
+                                <a href="/edit-recipe/<%= recipe._id %>"> <b>Edit</b> </a> -- 
+                                <a href="/delete-recipe/<%= recipe._id %>"> <b>Delete</b> </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="recipe-card-hover">
+                        <p>Ingredients:</p>
                         </div>
                     </div>
                 <%
