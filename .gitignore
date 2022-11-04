@@ -11,6 +11,8 @@
 *.sln.docstates
 /public/uploads
 /.DS_Store
+/public/.DS_Store
+/public/images/.DS_Store
 
 # Microsoft Fakes
 FakesAssemblies/

@@ -12,23 +12,25 @@
           <h2>Cannot connect to the server.</h2>
           <h3>Please contact ChefDevs team. Sorry for the inconvenience.</h3>
           <% } else{  %>
-        <form action="search-results" method="get">
-          <div class="labelwrapper-search">
-            <div class=""></div>
-            <div class="fieldwrapper-search">
-              <label for="search_keywords" >Ingradients</label>
-              <input
-                type="text"
-                id="search_keywords"
-                name="search_keywords"
-                placeholder="Ingredients"
-                value="<%= q %> "
-              />
+        <form action="search-results" method="get">        
+            <div class="labelwrapper-search">
+              <div class=""></div>
+              <div class="fieldwrapper-search">
+                <label for="search_keywords" >Ingradients</label>
+                <input
+                  type="text"
+                  id="search_keywords"
+                  name="search_keywords"
+                  placeholder="Ingredients"
+                  value="<%= q %> "
+                />
+              </div>
+              <div>
+                <input type="submit" Value="Filter Search" />
+              </div>
             </div>
-            <div>
-              <input type="submit" Value="Filter Search" />
-            </div>
-          </div>
+        
+         <div id="filterwrapper-search">
           <div class="labelwrapper-search">
             <div class="fieldwrapper-search">
               <label for="cuisineType"> Cuisine Type </label>
@@ -55,6 +57,8 @@
               </select>
             </div>
           </div>
+         </div>
+          
         </form>
   
         <div class="recipe-result">
@@ -93,7 +97,8 @@
           %>
               <div class="recipe-card">
                 <img src="<%= hits[index].recipe.image %>" alt="recipe photo" />
-                <div>
+              </div>
+              <div class="recipe-card-hover">
                   <p><b> <%= hits[index].recipe.label %> </b></p>
                   <p>Cuisine Type: <%= hits[index].recipe.cuisineType %> <br />
                     Meal Type: <%= hits[index].recipe.mealType %> <br />
@@ -104,7 +109,6 @@
                     </a>
                   </p>
                 </div>
-              </div>
           <% }%>
           </div>
           <% }else{ %>

@@ -2,26 +2,64 @@
     <div id="topHead" class="logo_title">
       <img src="/images/receipeasy_logo_v2.png" alt="RecipEasy logo" />
     </div>
+    
     <nav class="navbar">
       <ul>
         <li>
-          <a href="/search">Search</a>        
+          <div class="svg-wrapper">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="40" width="150"/>
+              <div id="text">
+                <a href="/search"><span class="spot"></span>Search</a>
+              </div>
+            </svg>
+          </div>       
         </li>
         <li>
-          <a href="/add-recipe">Add Recipe</a>
+          <div class="svg-wrapper">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="40" width="150" />
+              <div id="text">
+                <a href="/add-recipe"><span class="spot"></span>Add Recipe</a>
+              </div>
+            </svg>
+          </div> 
         </li>
         <% if (typeof(adminLog) != "undefined" && adminLog){ %> 
         <li>
-          <a href="/dashboard">My Recipes</a>
+          <div class="svg-wrapper">
+            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="40" width="150" />
+              <div id="text">
+                <a href="/dashboard"><span class="spot"></span>My Recipes</a>
+              </div>
+            </svg>
+          </div> 
         </li>
         <% } %>
-        <li>
           <% if (typeof(adminLog) != "undefined" && adminLog){ %> 
-          <a href="/logout">Logout</a>
-          <% } else{%>
-          <a href="/login">Admin Login</a>
-          <% } %>  
-        </li> 
+            <li>
+            <div class="svg-wrapper">
+              <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape" height="40" width="150" />
+                <div id="text">
+                  <a href="/logout"><span class="spot"></span>Logout</a>
+                </div>
+              </svg>
+            </div>
+          </li>
+            <% } else{%>
+              <li>
+              <div class="svg-wrapper">
+                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+                  <rect id="shape" height="40" width="150" />
+                  <div id="text">
+                    <a href="/login"><span class="spot"></span>AdminLogin</a>
+                  </div>
+                </svg>
+              </div>
+              </li>
+          <% } %> 
       </ul>
   </nav> 
   <div style="clear: both;"></div>
