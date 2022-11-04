@@ -342,7 +342,8 @@ table td a{
     height: 25px;
 }
 .fieldwrapper-photo img{
-    width: 100%;
+    width: max-content;
+    max-height: 80px;
 }
 
 /* login page */
