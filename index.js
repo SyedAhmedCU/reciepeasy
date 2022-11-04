@@ -135,8 +135,8 @@ myApp.get("/search-results", async function(req,res){
     jsonRes["mealSelected"] = mealSelected;
     jsonRes["dietSelected"] = dietSelected;
     jsonRes["healthSelected"] = healthSelected;
-    console.log(jsonRes);
-    console.log(fetchString);
+    //console.log(jsonRes);
+    //console.log(fetchString);
     //console.log(jsonRes.hits);
     //print json object to explore
     //var jsonPretty = JSON.stringify(jsonRes.hits[0],null,2);
