@@ -4,14 +4,18 @@
     <%- include("partials/meta.ejs") %>
     <title>RecipEasy: Search Recipe</title>
   </head>
-  <body>
+  <body background="images/food.gif">
+   
     <div class="container">
       <%- include('partials/header-nav.ejs') %> 
+      
       <main>
         <form action="search-results" method="get">
+          
           <label for="search_keywords"></label>
           <input type="text" id="search_keywords" name="search_keywords" placeholder="Ingredients" />
           <br>
+          
           <input type="submit" Value="Search"  />
         </form>
       </main>

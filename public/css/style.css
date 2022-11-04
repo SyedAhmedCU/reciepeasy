@@ -1,15 +1,16 @@
 body{
     margin: 0 auto;
-    background-image: url(/images/pexels-ray-piedra_blur.jpg);
-    /* background-color: black; */
+    /* background-image: url(/images/pexels-ray-piedra_blur.jpg); */
+    background-color: #040F16;
     font-family: 'Poor Story', cursive;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
 }
+
 body .container{
-    width: 1000px;
+    width: 1200px;
     margin: auto;
     text-align: center;
     color: white;
@@ -19,6 +20,10 @@ body .container{
 main{
     margin-top: 30px;
     margin-bottom: 30px;
+}
+header{
+    display: grid;
+    grid-template-columns: 1fr 6fr;
 }
 img{
     width: 100%;
@@ -34,44 +39,120 @@ nav{
     float: right;
     margin-top: 40px ;
 }
+
 .logo_title {
     width: 200px;
     padding: 10px;
     float: left;
 }
-nav, footer {
+
+
+/* nav a{
     padding: 10px;
+    font-size: 18px;
+} */
+footer{
+    padding-top: 12px;
     font-size: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #212121;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    /* border-top: 1px solid white; */
 }
 footer img{
+    /* height: 50%; */
     width: 10%;
-    
 }
-nav ul{
-    list-style-type: none;
-}
+
+.spot {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+  .svg-wrapper {
+    margin-top: 10px;
+    position: relative;
+    width: 200px;
+    /*make sure to use same height/width as in the html*/
+    height: 40px;
+    display: inline-block;
+    border-radius: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+  #shape {
+    stroke-width: 6px;
+    fill: transparent;
+    stroke: whitesmoke;
+    stroke-dasharray: 85 400;
+    stroke-dashoffset: -220;
+    transition: 1.5s all ease;
+  }
+  #text {
+    margin-top: -50px;
+    text-align: center;
+  }
+  #text a {
+    color: white;
+    text-decoration: none;
+    font-weight: 100;
+    font-size: 1.1em;
+  }
+  .svg-wrapper:hover #shape {
+    stroke-dasharray: 50 0;
+    stroke-width: 3px;
+    stroke-dashoffset: 0;
+    stroke: #81fb83;
+  }
+
 nav ul li{
     display: inline-block;
 }
-nav ul li a{
+
+/* nav ul li a{
   padding: 10px 30px;
   text-decoration: none;
   font-weight: bold;
   font-size: 14px;
-  text-shadow:  0 5px 5px #15fd00;
-  border: 2px solid #b3fd00;
-  border-radius: 20px;
-  
+  /* text-shadow:  0 5px 5px #15fd00; */
+  /* border: 2px solid white;
+  border-radius: 20px; 
+} */
+/* nav ul li a .btn1::after, a .btn1::before{
+    border: 3px solid white;
+    content: "";
+    position: absolute;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    left: 0;
+    bottom: 0;
+    z-index: -1; 
+    transition: transform 0.3s ease;
+} */
+/* a .btn1::after{
+    transform: translate(-5px, -5px);
 }
-nav a:hover{
+a .btn1::before{
+    transform: translate(5px, 5px);
+} */
+/* nav a:hover{
   background-color: #b3fd00;
   color: #084a83;
-}
+} */
 
 /* form layout */
 form{
     margin: auto;
-    box-shadow: 0 0 20px white;
+    width: 800px;
+    backdrop-filter: blur(10px);
+    /* box-shadow: 0 0 20px white; */
     border: 2px solid white;
     border-radius: 10px;
     padding: 30px;
@@ -102,7 +183,6 @@ border-radius: 10px;
     grid-template-columns: 2fr 3fr;
 }
 
-
 /* error msg */
 .fieldwrapper p{
     font-size: 11px;
@@ -130,6 +210,7 @@ border-radius: 10px;
     padding: 30px;
     text-align: left;
 }
+
 fieldset legend{
     font-size: larger;
     font-weight: bold;
@@ -139,26 +220,31 @@ fieldset legend{
 input:hover{
     border: 2px solid #b3fd00; 
 }
-input, textarea {
-    border: 2px solid white;
+#search_keywords{
+    width: 200px;
+    border: 2px solid white ;
     height: 25px;
     font-size: 16px;
     font-family: 'Poor Story', cursive;
 }
+/* input, textarea {
+    border: 2px solid white;
+    height: 25px;
+    font-size: 16px;
+    font-family: 'Poor Story', cursive;
+} */
 select{
     height: 30px;
 }
 
 /* submit button */
 input[type="submit"], input[type="reset"]{
+    font-family: 'Poor Story', cursive;
     min-width: 100px;
     margin-top: 30px;
     background-color: #b3fd00;
     font-size: large;
     height: 40px;
-    box-shadow: -2px -2px 0 #afa405;
-    border-radius: 8px;
-    color: black;
 }
 input[type="submit"]:active, input[type="reset"]:active{
     color: red;
@@ -166,7 +252,10 @@ input[type="submit"]:active, input[type="reset"]:active{
     box-shadow: none;
 }
 input[type="submit"]:hover, input[type="reset"]:hover{
-    background-color: #15fd00;
+    stroke-dasharray: 50 0;
+  stroke-width: 3px;
+  stroke-dashoffset: 0;
+  stroke: #06D6A0;
 }
 
 /* receipt */
@@ -264,12 +353,25 @@ table td a{
 
 .recipe-grid{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 2fr;
     grid-gap: 10px;
+    font-size: 20px;
 }
 .recipe-card{
-    border: 2px solid white;
+    /* border: 2px solid white; */
     font-family: 'Poor Story', cursive;
     font-size: 25px;
+    
+}
+.recipe-card img{
+    /* width: 100%; */
+    width: 300px;
+    height: 100%;
+    
+}
+.recipe-card-hover{
+  background-color: black;
+  text-align: left;
+  padding-left: 20px;
 }
 
