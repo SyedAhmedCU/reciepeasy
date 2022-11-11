@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("partials/meta.ejs") %>
+    <title>RecipEasy: <%= label %></title>
+  </head>
+  <body>
+    <div class="container search-results">
+      <main>
+        <% if (typeof(uri)=="undefined"){ %>
+          <h2>No recipe found</h2>
+          <h3>Please contact ChefDevs team. Sorry for the inconvenience.</h3>
+          <% } else{  %>
+  
+        <div class="recipe-result">
+          <div class="recipe-grid">
+              <div class="recipe-card print">
+                <div class="recipe-img-details">
+                  <img src="<%= image %>" alt="recipe photo" />
+                  <div>
+                    <p><b> <%= label %> </b> <br>
+                    Source: <a href="<%= url %>" target="_blank">
+                      <%= source %> </a> 
+                    </p>
+                    <p>Cuisine Type: <%= cuisineType %> <br />
+                      Meal Type: <%= mealType %> <br />
+                      Diet Type: <%= dietLabels %> <br />
+                    </p> 
+                    <img src="/images/receipeasy_logo_v2.png" alt="RecipEasy logo" style="width: 100px;"/>
+                    <img src="/images/chefdevs_logo_v2.png" alt="chefdevs logo" style="width: 120px;" />
+                  </div>
+                </div>
+                <div class="recipe-card-hover">
+                    <p>Ingradients: </p>
+                    <ul>
+                      <% let items = ingredientLines;
+                      items.forEach(function(ingr, index){ %>
+                        <li> <%= ingr %> </li>
+                      <% }) %>
+                    </ul>
+                    <button onclick="window.print();" class="print">Save</button>
+                </div>
+                
+              </div>
+          <% }%>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -117,6 +117,7 @@
                         <li> <%= ingr %> </li>
                       <% }) %>
                     </ul>
+                    <p> <a href="/print-recipe/<%= encodeURIComponent(hits[index].recipe.uri) %>"> <b>Print</b> </a></p>
                 </div>
               </div>
           <% }%>

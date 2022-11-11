@@ -385,3 +385,9 @@ table td a{
     max-height: 300px;
     padding-bottom: 10px;
 }
+
+@media print {
+    main{
+        color: #040F16;
+    }
+}
