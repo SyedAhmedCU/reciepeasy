@@ -7,7 +7,7 @@ Full-stack web application for searching recipes. User can also add recipes. The
 
 <p >
   <img src="https://user-images.githubusercontent.com/55814513/200006694-264549e0-c895-4d8e-aa3c-29b837f1392f.png" width="55%" />
-  <img src="https://user-images.githubusercontent.com/55814513/200006825-a7493670-0b65-4737-af3c-a00cbd377b12.png" width="44%" /> 
+  <img src="https://user-images.githubusercontent.com/55814513/201682835-efa503a7-8da7-4f8f-8d15-ace4612711a0.png" width="44%" /> 
 </p>
 
 
@@ -22,7 +22,7 @@ Run the following command in terminal one by one
 $ git clone https://github.com/SyedAhmedCU/reciepeasy.git
 ```
 ```sh
-$ cd online_store
+$ cd recipeasy
 ```
 ### Install packages and dependencies of node modules
 ```sh
