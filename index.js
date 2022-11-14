@@ -144,6 +144,19 @@ myApp.get("/search-results", async function(req,res){
     res.render("search-result", jsonRes);
 })
 
+//show only one recipe
+myApp.get("/print-recipe/:checkid", async function(req,res){
+    var checkURI = req.params.checkid;
+    var encodedURI = encodeURIComponent(checkURI)
+    const APP_ID = "085fc283";
+    const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
+    var fetchString = `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&r=${encodedURI}`;
+    const response = await fetch(fetchString);
+    const jsonRes = await response.json();
+    res.render("show-edamam-recipe", jsonRes[0]);
+});
+
+
 // dashboard
 myApp.get("/dashboard" , async function(req, res){
     if (req.session.loggedIn){
