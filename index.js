@@ -64,6 +64,10 @@ myApp.get('/login', function(req, res){
     global.adminLog = req.session.loggedIn;
     res.render("login");
 })
+// define the route for register page
+myApp.get('/register', function(req, res){
+    res.render("register");
+})
 
 //handle post for the login form
 myApp.post("/login", function(req,res){

@@ -2,22 +2,34 @@
 <html lang="en">
     <head>
         <%- include("partials/meta.ejs")  %> 
-        <title>RecipEasy: Admin Login</title>
+        <title>RecipEasy: Register</title>
     </head>
     <body>
         <div class="container">
             <%- include('partials/header-nav.ejs') %> 
             <main>
                 <section class="login_page">
-                    <form name="loginform" action="/login" method="post">
-                        <h2>Admin Login</h2>
+                    <form name="registerform" action="/register" method="post">
+                        <h2>Register an Account</h2>
                         <div class="labelwrapper">
                             <div class="fieldwrapper">
-                                <label for="aName">Username*</label>
+                                <label for="aFirst">First Name*:</label>
+                                <input id="aFirst" name="aFirst" type="text"/>
+                            </div>
+                            <div class="fieldwrapper">
+                                <label for="aLast">Last Name*:</label>
+                                <input id="aLast" name="aLast" type="text"/>
+                            </div>
+                            <div class="fieldwrapper">
+                                <label for="aEmail">Email*:</label>
+                                <input id="aEmail" name="aEmail" type="text"/>
+                            </div>
+                            <div class="fieldwrapper">
+                                <label for="aName">Username*:</label>
                                 <input id="aName" name="aName" type="text"/>
                             </div>
                             <div class="fieldwrapper">
-                                <label for="apass">Password*:</label>
+                                <label for="aPass">Password*:</label>
                                 <div>
                                     <input id="aPass" name="aPass" type="password"/>
                                     <% if(typeof(errors)!="undefined"){%> 
@@ -29,7 +41,6 @@
                         <div class="submission">
                             <input type="submit" value="Login">
                         </div>
-                        <a href="/register">Create an account</a>
                     </form>
                 </section>
             </main>
