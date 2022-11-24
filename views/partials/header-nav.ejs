@@ -1,6 +1,9 @@
 <header>
     <div id="topHead" class="logo_title">
       <a href="/search"><img src="/images/receipeasy_logo_v2.png" alt="RecipEasy logo"/></a>
+      <% if (typeof(user) != undefined) {%>
+        <b><%= user %> </b>
+      <% } %>  
     </div>
     
     <nav class="navbar">
@@ -25,7 +28,7 @@
             </svg>
           </div> 
         </li>
-        <% if (typeof(adminLog) != "undefined" && adminLog){ %> 
+        <% if (typeof(userLog) != "undefined" && userLog){ %> 
         <li>
           <div class="svg-wrapper">
             <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
@@ -37,13 +40,13 @@
           </div> 
         </li>
         <% } %>
-          <% if (typeof(adminLog) != "undefined" && adminLog){ %> 
+          <% if (typeof(userLog) != "undefined" && userLog){ %> 
             <li>
             <div class="svg-wrapper">
               <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                 <rect id="shape" height="40" width="150" />
                 <div id="text">
-                  <a href="/logout"><span class="spot"></span>Logout</a>
+                  <a href="/logout"><span class="spot"></span> Logout</a>
                 </div>
               </svg>
             </div>
@@ -54,7 +57,7 @@
                 <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
                   <rect id="shape" height="40" width="150" />
                   <div id="text">
-                    <a href="/login"><span class="spot"></span>AdminLogin</a>
+                    <a href="/login"><span class="spot"></span>Login</a>
                   </div>
                 </svg>
               </div>

@@ -14,32 +14,56 @@
                         <div class="labelwrapper">
                             <div class="fieldwrapper">
                                 <label for="aFirst">First Name*:</label>
-                                <input id="aFirst" name="aFirst" type="text"/>
+                                <div>
+                                    <input id="aFirst" name="aFirst" type="text" />
+                                    <% if(typeof(err)!="undefined" && typeof(err.errors)!="undefined" && typeof(err.errors["aFirst"]) != "undefined"){%> 
+                                        <p>First name is required!</p>
+                                    <% } %> 
+                                </div>
                             </div>
                             <div class="fieldwrapper">
-                                <label for="aLast">Last Name*:</label>
-                                <input id="aLast" name="aLast" type="text"/>
+                                <label for="aLast">Last Name*:</label>                 
+                                <div>
+                                    <input id="aLast" name="aLast" type="text"/>
+                                    <% if(typeof(err)!="undefined" && typeof(err.errors)!="undefined" && typeof(err.errors["aLast"]) != "undefined"){%> 
+                                        <p>Last name is required!</p>
+                                    <% } %> 
+                                </div>
                             </div>
                             <div class="fieldwrapper">
                                 <label for="aEmail">Email*:</label>
-                                <input id="aEmail" name="aEmail" type="text"/>
+                                <div>
+                                    <input id="aEmail" name="aEmail" type="email"/>
+                                    <% if(typeof(err)!="undefined" && typeof(err.errors)!="undefined" && typeof(err.errors["aEmail"]) != "undefined"){%> 
+                                        <p>Email is required!</p>
+                                    <% }else if (typeof(err)!="undefined" && typeof(err.keyValue) !="undefined" && typeof(err.keyValue["aEmail"]) != "undefined") {%> 
+                                        <p>Email is already taken!</p>
+                                    <% } %> 
+                                </div>
                             </div>
                             <div class="fieldwrapper">
-                                <label for="aName">Username*:</label>
-                                <input id="aName" name="aName" type="text"/>
+                                <label for="aUserName">Username*:</label>
+                                <div>
+                                    <input id="aUserName" name="aUserName" type="text"/>
+                                    <% if(typeof(err)!="undefined" && typeof(err.errors)!="undefined" && typeof(err.errors["aUserName"]) != "undefined"){%> 
+                                        <p>Username is required!</p>
+                                    <% }else if (typeof(err)!="undefined" && typeof(err.keyValue) !="undefined" && typeof(err.keyValue["aUserName"]) != "undefined") {%> 
+                                        <p>Username is already taken!</p>
+                                    <% } %> 
+                                </div>
                             </div>
                             <div class="fieldwrapper">
                                 <label for="aPass">Password*:</label>
                                 <div>
                                     <input id="aPass" name="aPass" type="password"/>
-                                    <% if(typeof(errors)!="undefined"){%> 
-                                        <p>Invalie Username or Password</p>
-                                    <% } %> 
+                                    <% if(typeof(err)!="undefined" && typeof(err.errors)!="undefined" && typeof(err.errors["aPass"]) != "undefined"){%> 
+                                        <p>Password is required!</p>
+                                    <% } %>
                                 </div>
                             </div>
                         </div>
                         <div class="submission">
-                            <input type="submit" value="Login">
+                            <input type="submit" value="Register">
                         </div>
                     </form>
                 </section>

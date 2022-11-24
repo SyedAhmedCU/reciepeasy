@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <%- include("partials/meta.ejs")  %> 
-        <title>RecipEasy: Admin Login</title>
+        <title>RecipEasy: Login</title>
     </head>
     <body>
         <div class="container">
@@ -10,11 +10,14 @@
             <main>
                 <section class="login_page">
                     <form name="loginform" action="/login" method="post">
-                        <h2>Admin Login</h2>
+                        <% if(typeof(message)!="undefined"){%> 
+                            <p><%= message  %> </p>
+                        <% } %> 
+                        <h2>Login</h2>
                         <div class="labelwrapper">
                             <div class="fieldwrapper">
-                                <label for="aName">Username*</label>
-                                <input id="aName" name="aName" type="text"/>
+                                <label for="aUserName">Username*</label>
+                                <input id="aUserName" name="aUserName" type="text"/>
                             </div>
                             <div class="fieldwrapper">
                                 <label for="apass">Password*:</label>

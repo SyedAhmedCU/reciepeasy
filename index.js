@@ -9,13 +9,7 @@ const fetch = require('node-fetch');
 const mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost:27017/RecipEasy', {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-
-// define model for admin user for DB
-const Admin = mongoose.model("Admin", {
-    aName : String,
-    aPass : String 
+    useUnifiedTopology: true,
 });
 
 //define Recipe model for DB
@@ -24,8 +18,17 @@ const Recipe = mongoose.model("Recipe",{
     rEmail : String,
     rDescription : String,
     rRecipeName : String,
-    rPhotoName : String
+    rPhotoName : String,
+    rUserName : String
 });
+const User = mongoose.model("User", {
+    aFirst : {type: String, required: [true, "First name is requried"]},
+    aLast : {type: String, required: [true, "Last name is required"]},
+    aEmail : {type: String, unique: [true, "Already taken"], required: [true, "Email is requierd"]},
+    aUserName: {type: String, unique: [true, "Already taken"], required: [true, "Username is required"]},
+    aPass : {type: String, required: [true, "Password is required"]}
+});
+
 
 //set up express validator
 const{check, validationResult} = require("express-validator");
@@ -33,6 +36,7 @@ const { exec } = require('child_process');
 const { StringDecoder } = require("string_decoder");
 const { request } = require("http");
 const { json } = require("express");
+const { stringify } = require("querystring");
 
 //set up the app
 var myApp = express();
@@ -43,6 +47,11 @@ myApp.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+myApp.use(function(req, res, next) {
+    res.locals.user = req.session.aUserName;
+    next();
+});
 
 //set up body parser
 myApp.use(express.urlencoded({extended:false}));
@@ -55,45 +64,68 @@ myApp.use(express.static(__dirname+ "/public")); // set up a middleware to serve
 
 // define the route for index page "/"
 myApp.get('/', function(req, res){
-    global.adminLog = req.session.loggedIn;
     res.render("search");
 })
 
 // define the route for login page
 myApp.get('/login', function(req, res){
-    global.adminLog = req.session.loggedIn;
     res.render("login");
 })
+
 // define the route for register page
 myApp.get('/register', function(req, res){
     res.render("register");
 })
 
+//handle post for the register form
+myApp.post("/register", function(req,res){
+    // var aUserName = req.body.aUserName;
+    // var aPass = req.body.aPass;
+    // var aFirst = req.body.aFirst;
+    // var aLast = req.body.aLast;
+
+    var newUser = new User();
+    newUser.aUserName = req.body.aUserName;
+    newUser.aPass = req.body.aPass;
+    newUser.aEmail = req.body.aEmail;
+    newUser.aFirst = req.body.aFirst;
+    newUser.aLast = req.body.aLast;
+
+    newUser.save(function(err){
+        if(err){
+            console.log(err);
+            return res.render("register", {newUser : newUser, err : err});
+        }
+        res.render("login", {message: "Account Created Successfully"});
+    });
+});
+
+
 //handle post for the login form
 myApp.post("/login", function(req,res){
     //fetch sname and spass
-    var aName = req.body.aName;
+    var aUserName = req.body.aUserName;
     var aPass = req.body.aPass;
     //find it in the database
-    Admin.findOne({aName: aName, aPass: aPass}).exec(function(err, admin){
+    User.findOne({aUserName: aUserName, aPass: aPass}).exec(function(err, user){
         //set up the session variables for logged in user
-        if(admin){
-            req.session.aName = admin.aName;
+        if(user){
+            req.session.aUserName = user.aUserName;
             req.session.loggedIn =  true;
             //redirect to dashboard
             res.redirect("dashboard");
         }else{
             res.render("login", {errors: "errors"});
         }
-        global.adminLog = req.session.loggedIn;
+        global.userLog = req.session.loggedIn;
     })
 });
 // clear session for log out
 myApp.get("/logout", function(req,res){
     //reset the variables for login
-    req.session.aName = "";
+    req.session.aUserName = "";
     req.session.loggedIn = false;
-    global.adminLog = req.session.loggedIn;
+    global.userLog = req.session.loggedIn;
     res.redirect("/login");
 })
 
@@ -164,7 +196,13 @@ myApp.get("/print-recipe/:checkid", async function(req,res){
 // dashboard
 myApp.get("/dashboard" , async function(req, res){
     if (req.session.loggedIn){
-        Recipe.find({}).exec(function(err, recipes){
+        aUserName = req.session.aUserName;
+        if (aUserName == "admin"){
+            Recipe.find({}).exec(function(err, recipes){
+                res.render('dashboard', {recipes : recipes});
+            });
+        }
+        Recipe.find({rUserName : aUserName}).exec(function(err, recipes){
             res.render('dashboard', {recipes : recipes});
         });
     }else{
@@ -188,7 +226,7 @@ myApp.get("/show-recipe", function(req, res){
     } else{
         res.redirect("/login");
     }
-    
+
 });
 
 //show only one recipe
@@ -241,6 +279,7 @@ myApp.post("/process-edit/:recipeid", function(req,res){
     if(!req.session.loggedIn){
         res.redirect("/login");
     } else{
+        var rUserName = req.session.aUserName;
         var recipeID = req.params.recipeid;
         var rName = req.body.rName;
         var rEmail = req.body.rEmail;
@@ -291,6 +330,7 @@ myApp.post("/add-recipe",[
         var rEmail = req.body.rEmail;
         var rRecipeName = req.body.rRecipeName;
         var rDescription = req.body.rDescription;
+        var rUserName = req.session.aUserName;
 
         var rPhotoName = "";
         
@@ -309,7 +349,8 @@ myApp.post("/add-recipe",[
             rEmail          : rEmail,
             rDescription    : rDescription,
             rRecipeName     : rRecipeName,
-            rPhotoName      : rPhotoName
+            rPhotoName      : rPhotoName,
+            rUserName       : rUserName
         };
         //create an object from the DB model to save to DB
         var userRecipe = new Recipe(reqFormData);
@@ -317,18 +358,6 @@ myApp.post("/add-recipe",[
         //send the data to the view and render it 
         res.render("add-recipe", reqFormData);
     }
-});
-
-// setup username password for first time
-myApp.get("/setup", function(req,res){
-    let adminData = [
-        {
-            aName: "admin",
-            aPass: "admin" 
-        }
-    ]
-    Admin.collection.insertMany(adminData);
-    res.send("Admin login credentials added");
 });
 
 //start the server (listen at a port)
