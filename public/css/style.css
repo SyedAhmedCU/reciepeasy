@@ -36,7 +36,7 @@ a{
 }
 /* header and navigation bar */
 nav{
-    font-size: 30px;
+    font-size: 24px;
     float: right;
     margin-top: 40px ;
 }
@@ -79,7 +79,7 @@ footer img{
   .svg-wrapper {
     margin-top: 10px;
     position: relative;
-    width: 200px;
+    width: 150px;
     /*make sure to use same height/width as in the html*/
     height: 40px;
     display: inline-block;
@@ -311,6 +311,10 @@ table td a{
     border: 2px solid black;
     border-radius: 10px;
     padding: 20px;
+}
+.recipe-img-details img{
+    height: 200px;
+    object-fit: fill; 
 }
 
 /* show-recipe */

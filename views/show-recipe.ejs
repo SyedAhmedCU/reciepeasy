@@ -23,8 +23,10 @@
               <img src="/images/chefdevs_logo_v2.png" alt="chefdevs logo" style="width: 120px;" />
             </p>
             <p><b>Description:</b> <br> <%- rDescription %></p>
+            <% if (user == rUserName) {%> 
             <a href="/edit-recipe/<%= _id %>"> <b>Edit</b> </a> -- 
             <a href="/delete-recipe/<%= _id %>"> <b>Delete</b> </a> <br>
+            <% } %> 
           </section>
         </div>
       </main>

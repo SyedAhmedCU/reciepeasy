@@ -112,7 +112,7 @@ myApp.post("/login",async function(req,res){
         }
         req.session.aUserName = user.aUserName;
         req.session.loggedIn =  true;
-        //global.userLog = req.session.loggedIn;
+        global.userLog = req.session.loggedIn;
         //redirect to dashboard
         res.redirect("/dashboard");
     })
@@ -124,12 +124,12 @@ myApp.get("/logout", function(req,res){
     req.session.loggedIn = false;
     global.userLog = req.session.loggedIn;
     res.redirect("/login");
-})
+});
 
 // set route for search page
 myApp.get('/search', async function(req, res){
     res.render("search");
-})
+});
 
 // handle search and get response from api
 //https://forkify-api.herokuapp.com/v2 try this later
@@ -208,6 +208,16 @@ myApp.get("/dashboard" , async function(req, res){
     }
 });
 
+// featured recipes
+myApp.get("/featured" , function(req, res){
+    Recipe.find({}).exec(function(err, recipes){
+        if(err){
+            res.redirect("/search");
+        }
+        res.render('featured', {recipes : recipes});
+    });
+});
+
 // define the route for the recipe page
 myApp.get("/add-recipe", function(req, res){
     if(req.session.loggedIn){
@@ -259,8 +269,12 @@ myApp.get("/print/:checkid", function(req,res){
 myApp.get("/delete-recipe/:recipeid", function(req,res){
     if (req.session.loggedIn){
         var recipeID = req.params.recipeid;
+        var rUserName = req.session.rUserName;
         Recipe.findByIdAndDelete({_id: recipeID}).exec(function(err, recipe){
-            res.render("delete-recipe", recipe);
+            if (recipe.rUserName == rUserName){
+                res.render("delete-recipe", recipe);
+            }
+            res.redirect("/logout");
         });
     }
     else{
@@ -272,8 +286,12 @@ myApp.get("/delete-recipe/:recipeid", function(req,res){
 myApp.get("/edit-recipe/:recipeid", function(req,res){
     if (req.session.loggedIn){
         var recipeID = req.params.recipeid;
+        var rUserName = req.session.rUserName;
         Recipe.findByIdAndUpdate({_id: recipeID}).exec(function(err, recipe){
-            res.render("edit-recipe", recipe);
+            if (recipe.rUserName == rUserName){
+                res.render("edit-recipe", recipe);
+            }
+            res.redirect("/logout");
         });
     }
     else{
