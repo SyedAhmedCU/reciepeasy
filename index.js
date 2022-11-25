@@ -234,7 +234,6 @@ myApp.get("/show-recipe", function(req, res){
     } else{
         res.redirect("/login");
     }
-
 });
 
 //show only one recipe
@@ -269,12 +268,13 @@ myApp.get("/print/:checkid", function(req,res){
 myApp.get("/delete-recipe/:recipeid", function(req,res){
     if (req.session.loggedIn){
         var recipeID = req.params.recipeid;
-        var rUserName = req.session.rUserName;
+        var rUserName = req.session.aUserName;
         Recipe.findByIdAndDelete({_id: recipeID}).exec(function(err, recipe){
-            if (recipe.rUserName == rUserName){
+            if (recipe.rUserName != rUserName){
+                res.redirect("/logout");
+            }else{
                 res.render("delete-recipe", recipe);
             }
-            res.redirect("/logout");
         });
     }
     else{
@@ -286,12 +286,13 @@ myApp.get("/delete-recipe/:recipeid", function(req,res){
 myApp.get("/edit-recipe/:recipeid", function(req,res){
     if (req.session.loggedIn){
         var recipeID = req.params.recipeid;
-        var rUserName = req.session.rUserName;
-        Recipe.findByIdAndUpdate({_id: recipeID}).exec(function(err, recipe){
-            if (recipe.rUserName == rUserName){
+        var rUserName = req.session.aUserName;
+        Recipe.findOne({_id: recipeID}).exec(function(err,recipe){
+            if (recipe.rUserName != rUserName){
+                res.redirect("/logout");
+            }else{
                 res.render("edit-recipe", recipe);
             }
-            res.redirect("/logout");
         });
     }
     else{
@@ -319,7 +320,7 @@ myApp.post("/process-edit/:recipeid", function(req,res){
             rPhotoName = req.body.rOldPhotoName;
         }
 
-        Recipe.findOne({_id: recipeID}).exec(function(err,recipe){
+        Recipe.findByIdAndUpdate({_id: recipeID}).exec(function(err,recipe){
             recipe.rDescription = rDescription;
             recipe.rRecipeName = rRecipeName;
             recipe.rPhotoName = rPhotoName;

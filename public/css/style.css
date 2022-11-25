@@ -313,7 +313,7 @@ table td a{
     padding: 20px;
 }
 .recipe-img-details img{
-    height: 200px;
+    max-height: 200px;
     object-fit: fill; 
 }
 
