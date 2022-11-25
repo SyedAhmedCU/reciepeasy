@@ -22,35 +22,13 @@
             <%- include('partials/header-nav.ejs') %> 
             <main>
                 <section class="request_page">
-                    <% if (typeof(rName) != "undefined") { %> 
+                    <% if (typeof(rRecipeName) != "undefined") { %> 
                         <h1> Thank you</h1>
                         <p>Your recipe has been successfully submitted!</p>
                     <% }else{ %>
                     <form action="/add-recipe" method="post" enctype="multipart/form-data">
                         <h2>Submit Recipe</h2>
                         <div class="labelwrapper">
-                            <div class="fieldwrapper">
-                                <label for="rName">Name*: </label>
-                                <div>
-                                    <input type="text" id="rName" name="rName" value="<%=inputName%>">
-                                    <% if (typeof(rErrorsMap) != "undefined" && typeof(rErrorsMap.rName) != "undefined") {%> 
-                                        <p> <%= rErrorsMap.rName.msg %> </p> 
-                                    <% } %> 
-                                </div>
-                            </div>
-                            <div class="fieldwrapper">
-                                <label for="rEmail">Email*: </label>
-                                <div>
-                                    <input type="email" id="rEmail" name="rEmail" value="<%=inputEmail%>">
-                                    <% if (typeof(rErrorsMap) != "undefined" && typeof(rErrorsMap.rEmail) != "undefined"){%> 
-                                        <p> <%= rErrorsMap.rEmail.msg %> </p> 
-                                    <% } %>  
-                                </div>
-                            </div>
-                            <div class="fieldwrapper ">
-                                <label for="rPhoto">Photo: </label>
-                                <input type="file" id="rPhoto" name="rPhoto">
-                            </div>
                             <div class="fieldwrapper">
                                 <label for="rRecipeName">Recipe Name*: </label>
                                 <div>
@@ -59,6 +37,10 @@
                                         <p> <%= rErrorsMap.rRecipeName.msg %> </p> 
                                     <% }%> 
                                 </div>
+                            </div>
+                            <div class="fieldwrapper ">
+                                <label for="rPhoto">Photo: </label>
+                                <input type="file" id="rPhoto" name="rPhoto">
                             </div>
                             <div class="fieldwrapper">
                                 <label for="rDescription">Description*: </label>

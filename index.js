@@ -14,8 +14,6 @@ mongoose.connect('mongodb://localhost:27017/RecipEasy', {
 
 //define Recipe model for DB
 const Recipe = mongoose.model("Recipe",{
-    rName : String,
-    rEmail : String,
     rDescription : String,
     rRecipeName : String,
     rPhotoName : String,
@@ -102,22 +100,21 @@ myApp.post("/register", function(req,res){
 
 
 //handle post for the login form
-myApp.post("/login", function(req,res){
+myApp.post("/login",async function(req,res){
     //fetch sname and spass
     var aUserName = req.body.aUserName;
     var aPass = req.body.aPass;
     //find it in the database
     User.findOne({aUserName: aUserName, aPass: aPass}).exec(function(err, user){
         //set up the session variables for logged in user
-        if(user){
-            req.session.aUserName = user.aUserName;
-            req.session.loggedIn =  true;
-            //redirect to dashboard
-            res.redirect("dashboard");
-        }else{
+        if(err){
             res.render("login", {errors: "errors"});
         }
-        global.userLog = req.session.loggedIn;
+        req.session.aUserName = user.aUserName;
+        req.session.loggedIn =  true;
+        //global.userLog = req.session.loggedIn;
+        //redirect to dashboard
+        res.redirect("/dashboard");
     })
 });
 // clear session for log out
@@ -201,10 +198,11 @@ myApp.get("/dashboard" , async function(req, res){
             Recipe.find({}).exec(function(err, recipes){
                 res.render('dashboard', {recipes : recipes});
             });
+        }else{
+            Recipe.find({rUserName : aUserName}).exec(function(err, recipes){
+                res.render('dashboard', {recipes : recipes});
+            });
         }
-        Recipe.find({rUserName : aUserName}).exec(function(err, recipes){
-            res.render('dashboard', {recipes : recipes});
-        });
     }else{
         res.redirect("/login");
     }
@@ -231,17 +229,25 @@ myApp.get("/show-recipe", function(req, res){
 
 //show only one recipe
 myApp.get("/print/:checkid", function(req,res){
-    
     if (req.session.loggedIn){
         var checkID = req.params.checkid;
         //check with the id if it exists in the collection recipes 
-        Recipe.countDocuments({_id: checkID}, function (err, count){
-            if (count > 0){
-                //fetch data using recipe id from Recipe Collection
-                Recipe.findOne({_id: checkID}).exec(function(err, recipe){
-                    res.render("show-recipe", recipe);
-                });
-            }
+        Recipe.findOne({_id: checkID}).exec(function(err, recipe){
+            User.findOne({aUserName : recipe.rUserName}).exec(function(err, user){
+                if(err){
+                    res.redirect("/login");
+                }
+                var showRecipe = {
+                    rEmail : user.aEmail,
+                    rName : user.aFirst + " " + user.aLast,
+                    rDescription : recipe.rDescription,
+                    rRecipeName : recipe.rRecipeName,
+                    rPhotoName : recipe.rPhotoName,
+                    rUserName : recipe.rUserName,
+                    _id : recipe._id
+                }
+                res.render("show-recipe", showRecipe);
+            });
         });
     }
     else{
@@ -281,8 +287,6 @@ myApp.post("/process-edit/:recipeid", function(req,res){
     } else{
         var rUserName = req.session.aUserName;
         var recipeID = req.params.recipeid;
-        var rName = req.body.rName;
-        var rEmail = req.body.rEmail;
         var rRecipeName = req.body.rRecipeName;
         var rDescription = req.body.rDescription;
         var rPhotoName = "";
@@ -298,8 +302,6 @@ myApp.post("/process-edit/:recipeid", function(req,res){
         }
 
         Recipe.findOne({_id: recipeID}).exec(function(err,recipe){
-            recipe.rName = rName;
-            recipe.rEmail = rEmail;
             recipe.rDescription = rDescription;
             recipe.rRecipeName = rRecipeName;
             recipe.rPhotoName = rPhotoName;
@@ -311,9 +313,6 @@ myApp.post("/process-edit/:recipeid", function(req,res){
 
 //handle post from recipe form
 myApp.post("/add-recipe",[
-    check("rName").notEmpty().withMessage("Name is required")
-    .matches(/^$|([a-zA-Z0-9]\s*)+$/).withMessage("Invalid name charecter"),
-    check("rEmail", "Email is required").isEmail(),
     check("rRecipeName", "Please write a name for your recipe").notEmpty(),
     check("rDescription", "Please describe your recipe").notEmpty()
 ], function(req,res){
@@ -326,8 +325,6 @@ myApp.post("/add-recipe",[
             keepReqFormData: req.body
         });
     } else{
-        var rName = req.body.rName;
-        var rEmail = req.body.rEmail;
         var rRecipeName = req.body.rRecipeName;
         var rDescription = req.body.rDescription;
         var rUserName = req.session.aUserName;
@@ -345,8 +342,6 @@ myApp.post("/add-recipe",[
         }
 
         var reqFormData = {
-            rName           : rName,
-            rEmail          : rEmail,
             rDescription    : rDescription,
             rRecipeName     : rRecipeName,
             rPhotoName      : rPhotoName,

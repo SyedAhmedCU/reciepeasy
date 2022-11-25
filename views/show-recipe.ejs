@@ -17,13 +17,14 @@
           <section class="recipe-details">
             <h2><b>Recipe Name:</b> <%= rRecipeName %></h2>
             <p>
-              <b> RecipeID: <%= _id %> </b> <br>
               <b>Chef: </b> <%= rName %> <br />
-              <b>Email:</b> <%= rEmail %>
+              <b>Email:</b> <%= rEmail %> <br>
+              <img src="/images/receipeasy_logo_v2.png" alt="RecipEasy logo" style="width: 100px;"/>
+              <img src="/images/chefdevs_logo_v2.png" alt="chefdevs logo" style="width: 120px;" />
             </p>
             <p><b>Description:</b> <br> <%- rDescription %></p>
             <a href="/edit-recipe/<%= _id %>"> <b>Edit</b> </a> -- 
-            <a href="/delete-recipe/<%= _id %>"> <b>Delete</b> </a>
+            <a href="/delete-recipe/<%= _id %>"> <b>Delete</b> </a> <br>
           </section>
         </div>
       </main>

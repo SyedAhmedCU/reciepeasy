@@ -17,12 +17,8 @@
                         <h2>Edit Recipe</h2>
                         <div class="labelwrapper">
                             <div class="fieldwrapper">
-                                <label for="rName">Name*: </label>
-                                <input type="text" id="rName" name="rName" value="<%=rName%>">
-                            </div>
-                            <div class="fieldwrapper">
-                                <label for="rEmail">Email*: </label>
-                                <input type="email" id="rEmail" name="rEmail" value="<%=rEmail%>">
+                                <label for="rRecipeName">Recipe Name*: </label>
+                                <input type="text" id="rRecipeName" name="rRecipeName" value="<%=rRecipeName%>">
                             </div>
                             <% if (rPhotoName != ""){ %>
                                 <div class="fieldwrapper-photo">
@@ -37,10 +33,6 @@
                                     <input type="file" id="rPhoto" name="rPhoto" value="<%= rPhotoName %> ">
                                 </div>
                             <% } %>   
-                            <div class="fieldwrapper">
-                                <label for="rRecipeName">Recipe Name*: </label>
-                                <input type="text" id="rRecipeName" name="rRecipeName" value="<%=rRecipeName%>">
-                            </div>
                             <div class="fieldwrapper">
                                 <label for="rDescription">Description*: </label>
                                 <input type="text" id="rDescription" name="rDescription" value="<%=rDescription%>">
