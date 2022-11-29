@@ -91,7 +91,7 @@ myApp.post("/register", function(req,res){
 
     newUser.save(function(err){
         if(err){
-            console.log(err);
+            //console.log(err);
             return res.render("register", {newUser : newUser, err : err});
         }
         res.render("login", {message: "Account Created Successfully"});
@@ -107,14 +107,15 @@ myApp.post("/login",async function(req,res){
     //find it in the database
     User.findOne({aUserName: aUserName, aPass: aPass}).exec(function(err, user){
         //set up the session variables for logged in user
-        if(err){
+        if(err || !user){
             res.render("login", {errors: "errors"});
+        }else{
+            req.session.aUserName = user.aUserName;
+            req.session.loggedIn =  true;
+            global.userLog = req.session.loggedIn;
+            //redirect to dashboard
+            res.redirect("dashboard");
         }
-        req.session.aUserName = user.aUserName;
-        req.session.loggedIn =  true;
-        global.userLog = req.session.loggedIn;
-        //redirect to dashboard
-        res.redirect("/dashboard");
     })
 });
 // clear session for log out
@@ -188,8 +189,6 @@ myApp.get("/print-recipe/:checkid", async function(req,res){
     const jsonRes = await response.json();
     res.render("show-edamam-recipe", jsonRes[0]);
 });
-
-
 // dashboard
 myApp.get("/dashboard" , async function(req, res){
     if (req.session.loggedIn){
@@ -207,7 +206,6 @@ myApp.get("/dashboard" , async function(req, res){
         res.redirect("/login");
     }
 });
-
 // featured recipes
 myApp.get("/featured" , function(req, res){
     Recipe.find({}).exec(function(err, recipes){
@@ -216,15 +214,6 @@ myApp.get("/featured" , function(req, res){
         }
         res.render('featured', {recipes : recipes});
     });
-});
-
-// define the route for the recipe page
-myApp.get("/add-recipe", function(req, res){
-    if(req.session.loggedIn){
-        res.render("add-recipe");
-    } else{
-        res.redirect("/login");
-    }
 });
 
 // //define route for show recipe page
@@ -281,7 +270,6 @@ myApp.get("/delete-recipe/:recipeid", function(req,res){
         res.redirect("/login");
     }
 });
-
 //edit an recipe
 myApp.get("/edit-recipe/:recipeid", function(req,res){
     if (req.session.loggedIn){
@@ -319,7 +307,6 @@ myApp.post("/process-edit/:recipeid", function(req,res){
         }else if (req.body.rOldPhotoName != null) {
             rPhotoName = req.body.rOldPhotoName;
         }
-
         Recipe.findByIdAndUpdate({_id: recipeID}).exec(function(err,recipe){
             recipe.rDescription = rDescription;
             recipe.rRecipeName = rRecipeName;
@@ -327,6 +314,15 @@ myApp.post("/process-edit/:recipeid", function(req,res){
             recipe.save();
             res.render("edit-recipe", {recipe});
         });
+    }
+});
+
+// define the route for the recipe page
+myApp.get("/add-recipe", function(req, res){
+    if(req.session.loggedIn){
+        res.render("add-recipe");
+    } else{
+        res.redirect("/login");
     }
 });
 
@@ -338,7 +334,7 @@ myApp.post("/add-recipe",[
     const rErrors = validationResult(req);
     const rErrorsMap = validationResult(req).mapped();
     if(!rErrors.isEmpty()){
-        res.render("recipe", {
+        res.render("add-recipe", {
             rErrors: rErrors.array(),
             rErrorsMap: rErrorsMap,
             keepReqFormData: req.body
@@ -359,7 +355,6 @@ myApp.post("/add-recipe",[
                 console.log(err);
             });
         }
-
         var reqFormData = {
             rDescription    : rDescription,
             rRecipeName     : rRecipeName,
