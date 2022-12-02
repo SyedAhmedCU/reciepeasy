@@ -5,6 +5,10 @@ const fileUpload = require("express-fileupload");
 const session = require("express-session");
 const fetch = require('node-fetch');
 
+//Edamam Api
+const APP_ID = "085fc283";
+const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
+
 //setup mongodb
 const mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost:27017/RecipEasy', {
@@ -26,7 +30,20 @@ const User = mongoose.model("User", {
     aUserName: {type: String, unique: [true, "Already taken"], required: [true, "Username is required"]},
     aPass : {type: String, required: [true, "Password is required"]}
 });
-
+const FavouriteApiRecipe = mongoose.model("FavouriteApiRecipe", {
+    nameURI : {type: String, unique: [true, "Already Exists"]},
+    aUserName: {type: String, required: [true, "Username is required"]},
+    image : String,
+    label : String,
+    source: String,
+    uri : {type: String, required: [true, "Uri is required"]},
+    url : String,
+    cuisineType : [String],
+    mealType: [String],
+    dietLabels : [String],
+    ingredientLines: [String],
+    mongoRecipeId: [String]
+});
 
 //set up express validator
 const{check, validationResult} = require("express-validator");
@@ -135,8 +152,8 @@ myApp.get('/search', async function(req, res){
 // handle search and get response from api
 //https://forkify-api.herokuapp.com/v2 try this later
 myApp.get("/search-results", async function(req,res){
-    const APP_ID = "085fc283";
-    const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
+    // // const APP_ID = "085fc283";
+    // // const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
     var search_keywords = req.query.search_keywords.trim();
     var cuisineSelected = req.query.cuisineType;
     var mealSelected = req.query.mealType;
@@ -178,12 +195,12 @@ myApp.get("/search-results", async function(req,res){
     res.render("search-result", jsonRes);
 })
 
-//show only one recipe
+//show only one edamam recipe
 myApp.get("/print-recipe/:checkid", async function(req,res){
     var checkURI = req.params.checkid;
     var encodedURI = encodeURIComponent(checkURI)
-    const APP_ID = "085fc283";
-    const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
+    // const APP_ID = "085fc283";
+    // const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
     var fetchString = `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&r=${encodedURI}`;
     const response = await fetch(fetchString);
     const jsonRes = await response.json();
@@ -368,6 +385,59 @@ myApp.post("/add-recipe",[
         res.render("add-recipe", reqFormData);
     }
 });
+//show only one edamam recipe
+myApp.get("/favourite-recipe" , async function(req, res){
+    if (req.session.loggedIn){
+        aUserName = req.session.aUserName;
+        FavouriteApiRecipe.find({aUserName: req.session.aUserName}, function(err, fRecipes){
+            var favouriteRecipes = Object.values(fRecipes)
+            res.render("favourite-recipe", {favouriteRecipes:favouriteRecipes} );
+        });
+    }else{
+        res.redirect("/login");
+    }
+});
+
+myApp.get("/add-favourite/:recipeURI", async function(req,res){
+    if (req.session.loggedIn){
+        var checkURI = req.params.recipeURI;
+        var encodedURI = encodeURIComponent(checkURI);
+        var fetchString = `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&r=${encodedURI}`;
+        const response = await fetch(fetchString);
+        const jsonRes = await response.json();
+        var userFavourite = new FavouriteApiRecipe();
+        userFavourite.aUserName = req.session.aUserName;
+        userFavourite.mongoRecipeId = "";
+        userFavourite.image = jsonRes[0].image;
+        userFavourite.label = jsonRes[0].label;
+        userFavourite.source = jsonRes[0].source;
+        userFavourite.uri = jsonRes[0].uri;
+        userFavourite.url = jsonRes[0].url;
+        userFavourite.cuisineType = jsonRes[0].cuisineType;
+        userFavourite.mealType = jsonRes[0].mealType;
+        userFavourite.dietLabels = jsonRes[0].dietLabels;
+        userFavourite.ingredientLines = jsonRes[0].ingredientLines;
+        userFavourite.nameURI = req.session.aUserName + jsonRes[0].uri;
+        //console.log(userFavourite.nameURI)
+        var querryResult;
+        FavouriteApiRecipe.findOne({aUserName : aUserName}).exec(function(err, exist){
+            if(err){
+                res.redirect("/login");
+            }else{
+                userFavourite.save(function(err){
+                    if(err){
+                        //console.log(err);
+                        res.render("favourite-recipe", {message :"Already Exists in Favourite!"});
+                    }else{
+                        res.render("favourite-recipe", {message :"Added to your favourites!"});
+                    }
+                });
+            }
+        });
+    }else{
+        res.redirect("/login");
+    }
+    });
 
 //start the server (listen at a port)
 myApp.listen(8080);

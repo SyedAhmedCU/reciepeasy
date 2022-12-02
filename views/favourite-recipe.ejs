@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/meta.ejs")  %> 
+    <title>RecipEasy: Favourite Recipes</title>
+</head>
+<body>
+    <div class="container">
+        <%- include('partials/header-nav.ejs') %> 
+        <main>
+            <div class="dashboard">
+                <h2>Favourite Recipes</h2>
+                <% if(typeof(message) != "undefined"){%>
+                    <h3><%= message %></h3>
+                <% } %>
+                <div class="fav-recipe-grid">
+                <% if(typeof(favouriteRecipes) != "undefined"){ 
+                     for (var recipe of Object.values(favouriteRecipes)) { %> 
+                        <div class="recipe-card">
+                            <div>
+                                <p><b> <%= recipe.label %> </b> <br>
+                                Source: <a href="<%= recipe.url %>" target="_blank">
+                                <%= recipe.source %> </a> 
+                                </p>
+                                <p>Cuisine Type: <%= recipe.cuisineType %> <br />
+                                Meal Type: <%= recipe.mealType %> <br />
+                                Diet Type: <%= recipe.dietLabels %> <br /> <br>
+                                <a href="/print-recipe/<%= encodeURIComponent(recipe.uri) %>" target="_blank"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                                </p>
+                                </p> 
+                            </div>
+                      </div>
+                <% } } %> 
+            </div>
+            </div>
+        </main>
+        <%- include("partials/footer.ejs")  %> 
+    </div>
+</body>
+</html>
