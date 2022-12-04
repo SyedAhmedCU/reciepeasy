@@ -2,7 +2,7 @@
     <div id="topHead" class="logo_title">
       <a href="/search"><img src="/images/receipeasy_logo_v2.png" alt="RecipEasy logo"/></a>
       <% if (typeof(userLog) != "undefined" && userLog) {%>
-        <b>Logged in as <%= user %> </b>
+        <b><i class="fa fa-user-circle" aria-hidden="true"></i> &nbsp; <%= user %> </b>
       <% } %>  
     </div>
     
@@ -10,8 +10,8 @@
       <ul>
         <li>
           <div class="svg-wrapper">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-              <rect id="shape" height="40" width="150"/>
+            <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="50" width="130"/>
               <div id="text">
                 <a href="/search"><span class="spot"></span>Search</a>
               </div>
@@ -20,8 +20,8 @@
         </li>
         <li>
           <div class="svg-wrapper">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-              <rect id="shape" height="40" width="150"/>
+            <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="50" width="130"/>
               <div id="text">
                 <a href="/featured"><span class="spot"></span>Featured</a>
               </div>
@@ -30,8 +30,8 @@
         </li>
         <li>
           <div class="svg-wrapper">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-              <rect id="shape" height="40" width="150" />
+            <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="50" width="130" />
               <div id="text">
                 <a href="/add-recipe"><span class="spot"></span>Add Recipe</a>
               </div>
@@ -41,8 +41,8 @@
         <% if (typeof(userLog) != "undefined" && userLog){ %> 
         <li>
           <div class="svg-wrapper">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-              <rect id="shape" height="40" width="150" />
+            <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="50" width="130" />
               <div id="text">
                 <a href="/dashboard"><span class="spot"></span>My Recipes</a>
               </div>
@@ -51,8 +51,8 @@
         </li>
         <li>
           <div class="svg-wrapper">
-            <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-              <rect id="shape" height="40" width="150" />
+            <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="50" width="130" />
               <div id="text">
                 <a href="/favourite-recipe"><span class="spot"></span>Favourites</a>
               </div>
@@ -63,8 +63,8 @@
           <% if (typeof(userLog) != "undefined" && userLog){ %> 
             <li>
             <div class="svg-wrapper">
-              <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                <rect id="shape" height="40" width="150" />
+              <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+                <rect id="shape" height="50" width="130" />
                 <div id="text">
                   <a href="/logout"><span class="spot"></span> Logout</a>
                 </div>
@@ -74,8 +74,8 @@
             <% } else{%>
               <li>
               <div class="svg-wrapper">
-                <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
-                  <rect id="shape" height="40" width="150" />
+                <svg height="50" width="130" xmlns="http://www.w3.org/2000/svg">
+                  <rect id="shape" height="50" width="130" />
                   <div id="text">
                     <a href="/login"><span class="spot"></span>Login</a>
                   </div>

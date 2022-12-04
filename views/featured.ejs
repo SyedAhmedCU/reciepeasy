@@ -17,9 +17,9 @@
                         <div class="recipe-img-details">
                             <img src="/uploads/<%= recipe.rPhotoName%>" alt="recipe photo">
                             <div>
-                            <p><b> <%= recipe.rRecipeName %>  </b></p>
-                            <p>Made By: <%= recipe.rUserName %> <br>
-                                <a href="/print/<%= recipe._id %>"> <b>View</b> </a> 
+                            <p><i class="fa fa-cutlery" aria-hidden="true"></i> <b> <%= recipe.rRecipeName %>  </b></p>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> <%= recipe.rUserName %> <br> <br>
+                                <a href="/print/<%= recipe._id %>"> <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a> 
                                 </p>
                             </div>
                         </div>

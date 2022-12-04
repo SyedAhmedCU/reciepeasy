@@ -18,13 +18,13 @@
                      for (var recipe of Object.values(favouriteRecipes)) { %> 
                         <div class="recipe-card">
                             <div>
-                                <p><b> <%= recipe.label %> </b> <br>
-                                Source: <a href="<%= recipe.url %>" target="_blank">
+                                <p><i class="fa fa-cutlery" aria-hidden="true"></i> <b> <%= recipe.label %> </b> <br>
+                                <i class="fa fa-link" aria-hidden="true"></i> Source: <a href="<%= recipe.url %>" target="_blank">
                                 <%= recipe.source %> </a> 
                                 </p>
-                                <p>Cuisine Type: <%= recipe.cuisineType %> <br />
-                                Meal Type: <%= recipe.mealType %> <br />
-                                Diet Type: <%= recipe.dietLabels %> <br /> <br>
+                                <p><i class="fa fa-globe" aria-hidden="true"></i> Cuisine Type: <%= recipe.cuisineType %> <br />
+                                    <i class="fa-solid fa-bell-concierge"></i> Meal Type: <%= recipe.mealType %> <br />
+                                <i class="fa-solid fa-wheat-awn"></i> Diet Type: <%= recipe.dietLabels %> <br /> <br>
                                 <a href="/print-recipe/<%= encodeURIComponent(recipe.uri) %>" target="_blank"> <i class="fa fa-download" aria-hidden="true"></i></a>
                                 </p>
                                 </p> 

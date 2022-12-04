@@ -8,6 +8,9 @@ body{
     background-position: center;
     background-size: cover;
 }
+i{
+    color: #f5fd00;
+}
 
 body .container{
     width: 1200px;
@@ -79,9 +82,9 @@ footer img{
   .svg-wrapper {
     margin-top: 10px;
     position: relative;
-    width: 150px;
+    width: 130px;
     /*make sure to use same height/width as in the html*/
-    height: 40px;
+    height: 50px;
     display: inline-block;
     border-radius: 3px;
     margin-left: 2px;
@@ -92,7 +95,7 @@ footer img{
     fill: transparent;
     stroke: whitesmoke;
     stroke-dasharray: 85 400;
-    stroke-dashoffset: -220;
+    stroke-dashoffset: -200;
     transition: 1.5s all ease;
   }
   #text {
@@ -384,6 +387,15 @@ table td a{
 }
 .recipe-card p{
     padding-left: 10px;
+}
+.recipe-card a{
+    color: #15fd00;
+}
+.recipe-card a i{
+    color: #15fd00;
+}
+button i{
+    color: black;
 }
 .recipe-img-details{
     display: grid;

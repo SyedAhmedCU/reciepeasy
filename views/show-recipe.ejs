@@ -24,8 +24,8 @@
             </p>
             <p><b>Description:</b> <br> <%- rDescription %></p>
             <% if (user == rUserName) {%> 
-            <a href="/edit-recipe/<%= _id %>"> <b>Edit</b> </a> -- 
-            <a href="/delete-recipe/<%= _id %>"> <b>Delete</b> </a> <br>
+            <a href="/edit-recipe/<%= _id %>"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp; &nbsp; 
+            <a href="/delete-recipe/<%= _id %>"> <i class="fa fa-trash-o" aria-hidden="true"></i></a> <br>
             <% } %> 
           </section>
         </div>
