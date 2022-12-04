@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/meta.ejs")  %> 
+    <title>RecipEasy: <%= rUserName  %> </title>
+</head>
+<body>
+    <div class="container">
+        <%- include('partials/header-nav.ejs') %> 
+        <main>
+            <div class="dashboard">
+                <h3> Recipes of <%= rUserName  %>  </h3>
+                <div class="recipe-grid">
+                <% for (var recipe of recipes) {
+                %>
+                    <div class="recipe-card">
+                        <div class="recipe-img-details">
+                            <img src="/uploads/<%= recipe.rPhotoName%>" alt="recipe photo">
+                            <div>
+                            <p><i class="fa fa-cutlery" aria-hidden="true"></i> &nbsp; <b> <%= recipe.rRecipeName %>  </b></p>
+                            <p><i class="fa fa-user" aria-hidden="true"></i> &nbsp; <%= recipe.rUserName %> <br> <br>
+                                <a href="/print/<%= recipe._id %>"> <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;View</a>&nbsp; &nbsp; 
+                                </p>
+                            </div>
+                        </div>
+                        <div class="recipe-card-hover">
+                            <p>Descripton: <%- recipe.rDescription %></p>
+                        </div>
+                    </div>
+                <%
+                } %> 
+                </div>
+            </div>
+        </main>
+        <%- include("partials/footer.ejs")  %> 
+    </div>
+</body>
+</html>

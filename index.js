@@ -94,11 +94,6 @@ myApp.get('/register', function(req, res){
 
 //handle post for the register form
 myApp.post("/register", function(req,res){
-    // var aUserName = req.body.aUserName;
-    // var aPass = req.body.aPass;
-    // var aFirst = req.body.aFirst;
-    // var aLast = req.body.aLast;
-
     var newUser = new User();
     newUser.aUserName = req.body.aUserName;
     newUser.aPass = req.body.aPass;
@@ -223,6 +218,17 @@ myApp.get("/dashboard" , async function(req, res){
         res.redirect("/login");
     }
 });
+// recipes by user-recipe
+myApp.get("/user-recipe/:username" , async function(req, res){
+    if (req.session.loggedIn){
+        var rUserName = req.params.username;
+        Recipe.find({rUserName : rUserName}).exec(function(err, recipes){
+            res.render('user-recipe', {recipes : recipes, rUserName: rUserName});
+        });
+    }else{
+        res.redirect("/login");
+    }
+});
 // featured recipes
 myApp.get("/featured" , function(req, res){
     Recipe.find({}).exec(function(err, recipes){
@@ -270,16 +276,18 @@ myApp.get("/print/:checkid", function(req,res){
     }
 });
 
-// to delete a card from database
+// to delete a recipe from database
 myApp.get("/delete-recipe/:recipeid", function(req,res){
     if (req.session.loggedIn){
         var recipeID = req.params.recipeid;
         var rUserName = req.session.aUserName;
-        Recipe.findByIdAndDelete({_id: recipeID}).exec(function(err, recipe){
+        Recipe.findOne({_id: recipeID}).exec(function(err,recipe){
             if (recipe.rUserName != rUserName){
                 res.redirect("/logout");
             }else{
-                res.render("delete-recipe", recipe);
+                Recipe.findByIdAndDelete({_id: recipeID}).exec(function(err, recipe){
+                    res.render("delete-recipe", recipe);
+                });
             }
         });
     }
@@ -397,7 +405,7 @@ myApp.get("/favourite-recipe" , async function(req, res){
         res.redirect("/login");
     }
 });
-
+// add-favourite recipes
 myApp.get("/add-favourite/:recipeURI", async function(req,res){
     if (req.session.loggedIn){
         var checkURI = req.params.recipeURI;

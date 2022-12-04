@@ -11,6 +11,9 @@ body{
 i{
     color: #f5fd00;
 }
+a{
+    text-decoration: none;
+}
 
 body .container{
     width: 1200px;
