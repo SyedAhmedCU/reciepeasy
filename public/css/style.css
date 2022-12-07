@@ -14,7 +14,6 @@ i{
 a{
     text-decoration: none;
 }
-
 body .container{
     width: 1200px;
     margin: auto;
@@ -40,6 +39,10 @@ h1, h2, h3{
 a{
     color: white;
 }
+.text-alert{
+    color:#15fd00;
+}
+
 /* header and navigation bar */
 nav{
     font-size: 24px;
