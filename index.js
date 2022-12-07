@@ -77,9 +77,14 @@ myApp.set("view engine", "ejs");
 myApp.set("views", path.join(__dirname, "views"));  // set a value for express
 myApp.use(express.static(__dirname+ "/public")); // set up a middleware to server static file
 
-// define the route for index page "/"
+// define the route for landing page "/"
 myApp.get('/', function(req, res){
     res.render("search");
+})
+
+// define the route for about us page
+myApp.get('/about-us', function(req, res){
+    res.render("about-us");
 })
 
 // define the route for login page
