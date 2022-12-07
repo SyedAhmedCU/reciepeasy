@@ -4,6 +4,8 @@ const path = require("path");
 const fileUpload = require("express-fileupload");
 const session = require("express-session");
 const fetch = require('node-fetch');
+const cookieParser = require('cookie-parser');
+const flash = require('connect-flash');
 
 //Edamam Api
 const APP_ID = "085fc283";
@@ -59,9 +61,12 @@ var myApp = express();
 //set up variable to use package express-session
 myApp.use(session({
     secret: "8p0r2o0gs2y0e2d2",
+    cookie: { maxAge: 60000 },
     resave: false,
     saveUninitialized: true
 }));
+myApp.use(cookieParser('NotSoSecret'));
+myApp.use(flash());
 
 myApp.use(function(req, res, next) {
     res.locals.user = req.session.aUserName;
@@ -402,9 +407,10 @@ myApp.post("/add-recipe",[
 myApp.get("/favourite-recipe" , async function(req, res){
     if (req.session.loggedIn){
         aUserName = req.session.aUserName;
+        const flashMessage = req.flash('flashMessage');
         FavouriteApiRecipe.find({aUserName: req.session.aUserName}, function(err, fRecipes){
-            var favouriteRecipes = Object.values(fRecipes)
-            res.render("favourite-recipe", {favouriteRecipes:favouriteRecipes} );
+            var favouriteRecipes = Object.values(fRecipes);
+            res.render("favourite-recipe", {favouriteRecipes:favouriteRecipes, flashMessage : flashMessage } );
         });
     }else{
         res.redirect("/login");
@@ -431,8 +437,7 @@ myApp.get("/add-favourite/:recipeURI", async function(req,res){
         userFavourite.dietLabels = jsonRes[0].dietLabels;
         userFavourite.ingredientLines = jsonRes[0].ingredientLines;
         userFavourite.nameURI = req.session.aUserName + jsonRes[0].uri;
-        //console.log(userFavourite.nameURI)
-        var querryResult;
+
         FavouriteApiRecipe.findOne({aUserName : aUserName}).exec(function(err, exist){
             if(err){
                 res.redirect("/login");
@@ -440,10 +445,11 @@ myApp.get("/add-favourite/:recipeURI", async function(req,res){
                 userFavourite.save(function(err){
                     if(err){
                         //console.log(err);
-                        res.render("favourite-recipe", {message :"Already Exists in Favourite!"});
+                        req.flash('flashMessage', "Already Exists in Favourite!");
                     }else{
-                        res.render("favourite-recipe", {message :"Added to your favourites!"});
+                        req.flash('flashMessage', "Added to your Favourite");
                     }
+                    res.redirect("/favourite-recipe");
                 });
             }
         });

@@ -10,8 +10,8 @@
         <main>
             <div class="dashboard">
                 <h2>Favourite Recipes</h2>
-                <% if(typeof(message) != "undefined"){%>
-                    <h3><%= message %></h3>
+                <% if(typeof(flashMessage) != "undefined"){%>
+                    <h4 class="text-alert"><%= flashMessage %></h4>
                 <% } %>
                 <div class="fav-recipe-grid">
                 <% if(typeof(favouriteRecipes) != "undefined"){ 
