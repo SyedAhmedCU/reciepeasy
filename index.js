@@ -416,6 +416,18 @@ myApp.get("/favourite-recipe" , async function(req, res){
         res.redirect("/login");
     }
 });
+// delete recipe from favourite
+myApp.get("/remove-recipe-favourite/:recipeid", function (req, res) {
+  if (req.session.loggedIn) {
+    var recipeID = req.params.recipeid;
+    FavouriteApiRecipe.findByIdAndDelete({ _id: recipeID }).exec(function (err, favouriteApiRecipe) {
+        req.flash("flashMessage", "Removed from favourite");
+        res.redirect("/favourite-recipe");
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
 // add-favourite recipes
 myApp.get("/add-favourite/:recipeURI", async function(req,res){
     if (req.session.loggedIn){

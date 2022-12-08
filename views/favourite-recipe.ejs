@@ -26,6 +26,7 @@
                                     <i class="fa-solid fa-bell-concierge"></i> Meal Type: <%= recipe.mealType %> <br />
                                 <i class="fa-solid fa-wheat-awn"></i> Diet Type: <%= recipe.dietLabels %> <br /> <br>
                                 <a href="/print-recipe/<%= encodeURIComponent(recipe.uri) %>" target="_blank"> <i class="fa fa-download" aria-hidden="true"></i></a>
+                                <a href="/remove-recipe-favourite/<%= recipe._id %>">&nbsp; <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                 </p>
                                 </p> 
                             </div>
