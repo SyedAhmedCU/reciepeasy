@@ -444,7 +444,6 @@ myApp.get("/add-favourite/:recipeURI", async function(req,res){
             }else{
                 userFavourite.save(function(err){
                     if(err){
-                        //console.log(err);
                         req.flash('flashMessage', "Already Exists in Favourite!");
                     }else{
                         req.flash('flashMessage', "Added to your Favourite");
