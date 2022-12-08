@@ -59,10 +59,11 @@ const e = require("connect-flash");
 //set up the app
 var myApp = express();
 
+//    cookie: { maxAge: 1000 },
+
 //set up variable to use package express-session
 myApp.use(session({
     secret: "8p0r2o0gs2y0e2d2",
-    cookie: { maxAge: 60000 },
     resave: false,
     saveUninitialized: true
 }));
@@ -228,14 +229,10 @@ myApp.get("/dashboard" , async function(req, res){
 });
 // recipes by user-recipe
 myApp.get("/user-recipe/:username" , async function(req, res){
-    if (req.session.loggedIn){
-        var rUserName = req.params.username;
-        Recipe.find({rUserName : rUserName}).exec(function(err, recipes){
-            res.render('user-recipe', {recipes : recipes, rUserName: rUserName});
-        });
-    }else{
-        res.redirect("/logout");
-    }
+    var rUserName = req.params.username;
+    Recipe.find({rUserName : rUserName}).exec(function(err, recipes){
+        res.render('user-recipe', {recipes : recipes, rUserName: rUserName});
+    });
 });
 // featured recipes
 myApp.get("/featured" , function(req, res){
