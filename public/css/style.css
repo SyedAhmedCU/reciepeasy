@@ -8,6 +8,7 @@ body{
     background-position: center;
     background-size: cover;
 }
+
 i{
     color: #f5fd00;
 }
@@ -15,6 +16,8 @@ a{
     text-decoration: none;
 }
 body .container{
+    z-index: 999;
+    position: relative;
     width: 1200px;
     margin: auto;
     text-align: center;
@@ -26,6 +29,7 @@ main{
     margin-top: 30px;
     margin-bottom: 30px;
 }
+
 header{
     display: grid;
     grid-template-columns: 1fr 6fr;
@@ -230,7 +234,8 @@ fieldset legend{
 
 /* input styles */
 input:hover{
-    border: 2px solid #b3fd00; 
+    border: 2px solid #f3f4f1; 
+    border-radius: 20px;
 }
 #search_keywords{
     width: 200px;
@@ -239,6 +244,7 @@ input:hover{
     font-size: 20px;
     font-family: 'Poor Story', cursive;
 }
+
 /* input, textarea {
     border: 2px solid white;
     height: 25px;
@@ -255,6 +261,8 @@ input[type="submit"], input[type="reset"]{
     min-width: 100px;
     margin-top: 30px;
     background-color: #b3fd00;
+    border: 1px solid #fefefe;
+    border-radius: 20px;
     font-size: large;
     height: 40px;
 }
@@ -267,7 +275,12 @@ input[type="submit"]:hover, input[type="reset"]:hover{
     stroke-dasharray: 50 0;
   stroke-width: 3px;
   stroke-dashoffset: 0;
-  stroke: #06D6A0;
+  stroke: #95ffe3;
+  background-color: #040F16;
+  border: 2px solid white;
+  color: white;
+  box-shadow: 0px 0px 10px #06D6A0;
+  width: 105px;
 }
 
 /* receipt */
@@ -418,7 +431,7 @@ button i{
 /* about us page */
 .aboutus-top{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.5fr;
     padding-top: 20px;
 }
 
@@ -435,10 +448,12 @@ button i{
     padding-top: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    padding-bottom: 20px;
 }
 
 .aboutus-bottom p{
     opacity: 60%;
+    font-size: 20px;
     margin-top: -25px;
 }
 .aboutus-bottom img{
