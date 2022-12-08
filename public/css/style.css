@@ -440,8 +440,9 @@ button i{
     font-size: 50px;
 }
 
-.aboutus-desc p{
-    text-align: left;
+.aboutus-desc{
+    width: 600px;
+    text-align: justify;
 }
 
 .aboutus-bottom{
@@ -449,6 +450,10 @@ button i{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding-bottom: 20px;
+}
+
+.aboutus-bottom a{
+    color: #15fd00;
 }
 
 .aboutus-bottom p{
@@ -462,6 +467,9 @@ button i{
     max-width: 200px;
     max-height: 200px;
     object-fit: cover;
+}
+footer a{
+    color: #15fd00;
 }
 
 @media print {
