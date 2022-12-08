@@ -415,6 +415,40 @@ button i{
     padding-bottom: 10px;
 }
 
+/* about us page */
+.aboutus-top{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 20px;
+}
+
+.aboutus-top h1{
+    padding-top: 40px;
+    font-size: 50px;
+}
+
+.aboutus-desc p{
+    text-align: left;
+}
+
+.aboutus-bottom{
+    padding-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.aboutus-bottom p{
+    opacity: 60%;
+    margin-top: -25px;
+}
+.aboutus-bottom img{
+    border: #06D6A0;
+    box-shadow: 0px 0px 10px white ;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+}
+
 @media print {
     main{
         color: #040F16;
