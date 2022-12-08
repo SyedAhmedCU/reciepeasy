@@ -11,6 +11,9 @@
             <div class="dashboard">
                 <h2>Dashboard</h2>
                 <h3> My Recipes </h3>
+                <% if(typeof(flashMessage) != "undefined"){%>
+                    <h4 class="text-alert"><%= flashMessage %></h4>
+                <% } %>
                 <div class="recipe-grid">
                 <% for (var recipe of recipes) {
                 %>

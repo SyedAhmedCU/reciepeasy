@@ -54,6 +54,7 @@ const { StringDecoder } = require("string_decoder");
 const { request } = require("http");
 const { json } = require("express");
 const { stringify } = require("querystring");
+const e = require("connect-flash");
 
 //set up the app
 var myApp = express();
@@ -157,8 +158,6 @@ myApp.get('/search', async function(req, res){
 // handle search and get response from api
 //https://forkify-api.herokuapp.com/v2 try this later
 myApp.get("/search-results", async function(req,res){
-    // // const APP_ID = "085fc283";
-    // // const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
     var search_keywords = req.query.search_keywords.trim();
     var cuisineSelected = req.query.cuisineType;
     var mealSelected = req.query.mealType;
@@ -204,8 +203,6 @@ myApp.get("/search-results", async function(req,res){
 myApp.get("/print-recipe/:checkid", async function(req,res){
     var checkURI = req.params.checkid;
     var encodedURI = encodeURIComponent(checkURI)
-    // const APP_ID = "085fc283";
-    // const APP_KEYS = "12ca3ea10581e8ef20be4652a56e4b57"; 
     var fetchString = `https://api.edamam.com/search?app_id=${APP_ID}&app_key=${APP_KEYS}&r=${encodedURI}`;
     const response = await fetch(fetchString);
     const jsonRes = await response.json();
@@ -215,17 +212,18 @@ myApp.get("/print-recipe/:checkid", async function(req,res){
 myApp.get("/dashboard" , async function(req, res){
     if (req.session.loggedIn){
         aUserName = req.session.aUserName;
+        const flashMessage = req.flash('flashMessage');
         if (aUserName == "admin"){
             Recipe.find({}).exec(function(err, recipes){
-                res.render('dashboard', {recipes : recipes});
+                res.render('dashboard', {recipes : recipes, flashMessage: flashMessage});
             });
         }else{
             Recipe.find({rUserName : aUserName}).exec(function(err, recipes){
-                res.render('dashboard', {recipes : recipes});
+                res.render('dashboard', {recipes : recipes, flashMessage: flashMessage});
             });
         }
     }else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 // recipes by user-recipe
@@ -249,7 +247,7 @@ myApp.get("/featured" , function(req, res){
     });
 });
 
-// //define route for show recipe page
+//define route for show recipe page
 myApp.get("/show-recipe", function(req, res){
     if(req.session.loggedIn){
         res.render("show-recipe");
@@ -296,7 +294,8 @@ myApp.get("/delete-recipe/:recipeid", function(req,res){
                 res.redirect("/logout");
             }else{
                 Recipe.findByIdAndDelete({_id: recipeID}).exec(function(err, recipe){
-                    res.render("delete-recipe", recipe);
+                    req.flash("flashMessage", "Recipe Deleted Successfully");
+                    res.redirect("/dashboard");
                 });
             }
         });
@@ -347,7 +346,8 @@ myApp.post("/process-edit/:recipeid", function(req,res){
             recipe.rRecipeName = rRecipeName;
             recipe.rPhotoName = rPhotoName;
             recipe.save();
-            res.render("edit-recipe", {recipe});
+            req.flash("flashMessage", "Recipe Edited Successfully");
+            res.redirect("/dashboard");
         });
     }
 });
@@ -389,6 +389,8 @@ myApp.post("/add-recipe",[
             rPhotoFile.mv(rPhotoPath, function(err){
                 console.log(err);
             });
+        }else{
+            rPhotoName = "default-recipe-icon.png";
         }
         var reqFormData = {
             rDescription    : rDescription,
@@ -399,8 +401,9 @@ myApp.post("/add-recipe",[
         //create an object from the DB model to save to DB
         var userRecipe = new Recipe(reqFormData);
         userRecipe.save();
+        req.flash("flashMessage", "Recipe Added Successfully");
         //send the data to the view and render it 
-        res.render("add-recipe", reqFormData);
+        res.redirect("/dashboard");
     }
 });
 //show only one edamam recipe
@@ -413,7 +416,7 @@ myApp.get("/favourite-recipe" , async function(req, res){
             res.render("favourite-recipe", {favouriteRecipes:favouriteRecipes, flashMessage : flashMessage } );
         });
     }else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 // delete recipe from favourite
@@ -425,7 +428,7 @@ myApp.get("/remove-recipe-favourite/:recipeid", function (req, res) {
         res.redirect("/favourite-recipe");
     });
   } else {
-    res.redirect("/login");
+    res.redirect("/logout");
   }
 });
 // add-favourite recipes
@@ -465,7 +468,7 @@ myApp.get("/add-favourite/:recipeURI", async function(req,res){
             }
         });
     }else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
     });
 
