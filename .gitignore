@@ -20,6 +20,7 @@ public/uploads/*
 
 # exception to the rule
 !public/uploads/.gitkeep 
+!/public/uploads/default-recipe-icon.png
 
 # Microsoft Fakes
 FakesAssemblies/

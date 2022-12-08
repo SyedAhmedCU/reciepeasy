@@ -234,7 +234,7 @@ myApp.get("/user-recipe/:username" , async function(req, res){
             res.render('user-recipe', {recipes : recipes, rUserName: rUserName});
         });
     }else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 // featured recipes
@@ -252,7 +252,7 @@ myApp.get("/show-recipe", function(req, res){
     if(req.session.loggedIn){
         res.render("show-recipe");
     } else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 
@@ -264,7 +264,7 @@ myApp.get("/print/:checkid", function(req,res){
         Recipe.findOne({_id: checkID}).exec(function(err, recipe){
             User.findOne({aUserName : recipe.rUserName}).exec(function(err, user){
                 if(err){
-                    res.redirect("/login");
+                    res.redirect("/logout");
                 }
                 var showRecipe = {
                     rEmail : user.aEmail,
@@ -280,7 +280,7 @@ myApp.get("/print/:checkid", function(req,res){
         });
     }
     else{
-         res.redirect("/login");
+         res.redirect("/logout");
     }
 });
 
@@ -301,7 +301,7 @@ myApp.get("/delete-recipe/:recipeid", function(req,res){
         });
     }
     else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 //edit an recipe
@@ -318,13 +318,13 @@ myApp.get("/edit-recipe/:recipeid", function(req,res){
         });
     }
     else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 // handle post from edit-recipe
 myApp.post("/process-edit/:recipeid", function(req,res){
     if(!req.session.loggedIn){
-        res.redirect("/login");
+        res.redirect("/logout");
     } else{
         var rUserName = req.session.aUserName;
         var recipeID = req.params.recipeid;
@@ -357,7 +357,7 @@ myApp.get("/add-recipe", function(req, res){
     if(req.session.loggedIn){
         res.render("add-recipe");
     } else{
-        res.redirect("/login");
+        res.redirect("/logout");
     }
 });
 
@@ -455,7 +455,7 @@ myApp.get("/add-favourite/:recipeURI", async function(req,res){
 
         FavouriteApiRecipe.findOne({aUserName : aUserName}).exec(function(err, exist){
             if(err){
-                res.redirect("/login");
+                res.redirect("/logout");
             }else{
                 userFavourite.save(function(err){
                     if(err){
