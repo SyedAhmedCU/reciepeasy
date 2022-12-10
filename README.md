@@ -15,24 +15,31 @@ Full-stack web application for searching recipes. User can also add recipes. The
 ### Prerequisites
 - Requires [NodeJS](https://nodejs.org/en/download/) and [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
 - Requires [MongoDB](https://www.mongodb.com/try/download/community) and [MongoDB Compass](https://www.mongodb.com/products/compass) 
-- Download the repository as zip and extract or clone it to your local device
+- Download the repository as zip and extract or clone it to your local device.
 ### Steps for Cloning the source code
-Run the following command in terminal one by one
+-	Create a folder and open a terminal.
+- Run the following command in terminal one by one.
 ```sh
-$ git clone https://github.com/SyedAhmedCU/reciepeasy.git
-```
-```sh
-$ cd recipeasy
+$ git clone https://github.com/SyedAhmedCU/reciepeasy.git .
 ```
 ### Install packages and dependencies of node modules
+- Once you have all the RecipEasy source codes in a folder, run the following command from terminal. 
 ```sh
 $ npm install
 ```
+### Set up Mongodb Compass
+-	Open Mongodb Compass and start a new connection.
+-	Use the following URI to start the connection.
+```sh
+mongodb://localhost:27017
+```
+-	If RecipEasy server is running, there will be a Database collection named RecipEasy in mongodb. 
+
 ### Start server
 ```sh
 $ node index.js
 ```
-If the nodemon model is installed
+If the nodemon package is installed, use following command.
 ```sh
 $ npm run dev
 ``` 
